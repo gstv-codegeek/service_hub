@@ -3,6 +3,7 @@ package com.gichungasoftwares.ServiceHub.entity.user;
 import com.gichungasoftwares.ServiceHub.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 public abstract class User implements UserDetails {
@@ -20,9 +22,12 @@ public abstract class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String fullName;
     private String username;
+    @Column(unique = true)
     private String email;
     private String phoneNumber;
+    private String idNumber;
     private String password;
     private UserRole userRole;
 

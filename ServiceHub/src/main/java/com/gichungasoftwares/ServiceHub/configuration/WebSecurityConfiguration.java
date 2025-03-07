@@ -27,22 +27,23 @@ public class WebSecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserService userService;
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+        return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/api/admin/**").hasAnyAuthority(UserRole.ROLE_ADMIN.name())
-                                .requestMatchers("/api/customer/**").hasAnyAuthority(UserRole.ROLE_CUSTOMER.name())
-                                .requestMatchers("/api/provider/**").hasAnyAuthority(UserRole.ROLE_SERVICE_PROVIDER.name())
+                        request.requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/v1/admin/**").hasAnyAuthority(UserRole.ROLE_ADMIN.name())
+                                .requestMatchers("/api/v1/customer/**").hasAnyAuthority(UserRole.ROLE_CUSTOMER.name())
+                                .requestMatchers("/api/v1/provider/**").hasAnyAuthority(UserRole.ROLE_SERVICE_PROVIDER.name())
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(manager ->
                         manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
