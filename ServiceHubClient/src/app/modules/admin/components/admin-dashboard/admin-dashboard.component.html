@@ -1,1 +1,8 @@
-<p>admin-dashboard works!</p>
+<nz-spin [nzSpinning]="isSpinning">
+  <h3>Create Category</h3>
+  <form [formGroup]="categoryForm">
+    <input nz-input type="text" formControlName="categoryName" placeholder="Enter Service Category">
+    <button nz-button (click)="createCategory()" nzType="primary">Submit</button>
+  </form>
+</nz-spin>
+
