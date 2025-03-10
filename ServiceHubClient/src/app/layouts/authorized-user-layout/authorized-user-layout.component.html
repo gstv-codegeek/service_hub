@@ -1,0 +1,29 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"><span class="text">ServiceHub</span></div>
+
+    <ul nz-menu nzTheme="dark" nzMode="horizontal"  nz-flex nzJustify="flex-end" nzAlign="center" *ngIf="isAdminLoggedIn">
+      <li nz-menu-item><a routerLink="/admin/dashboard" routerLinkActive="active" nz-button nzType="link">Admin Dashboard</a></li>
+      <li nz-menu-item><a routerLink="/admin/search" routerLinkActive="active" nz-button nzType="link">Search Services</a></li>
+      <li nz-menu-item><a routerLinkActive="active" nz-button nzType="link" (click)="logout()">Logout</a></li>
+    </ul>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" nz-flex nzJustify="flex-end" nzAlign="center" *ngIf="isCustomerLoggedIn">
+      <li nz-menu-item><a routerLink="/customer/dashboard" routerLinkActive="active" nz-button nzType="link">Customer Dashboard</a></li>
+      <li nz-menu-item><a routerLink="/customer/search" routerLinkActive="active" nz-button nzType="link">Search Car</a></li>
+      <li nz-menu-item><a routerLinkActive="active" nz-button nzType="link" (click)="logout()">Logout</a></li>
+    </ul>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" nz-flex nzJustify="flex-end" nzAlign="center" *ngIf="isProviderLoggedIn">
+      <li nz-menu-item><a routerLink="/provider/dashboard" routerLinkActive="active" nz-button nzType="link">Provider Dashboard</a></li>
+      <li nz-menu-item><a routerLink="/provider/search" routerLinkActive="active" nz-button nzType="link">Search Car</a></li>
+      <li nz-menu-item><a routerLinkActive="active" nz-button nzType="link" (click)="logout()">Logout</a></li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer> &copy; 2025 | Gichunga Designs</nz-footer>
+</nz-layout>
+
+

@@ -1,0 +1,302 @@
+<nz-layout>
+  <nz-header class="header" [ngClass]="{'scrolled': isScrolled}">
+    <div class="logo">Service<span class="text">Hub</span></div>
+    <ul nz-menu nzMode="horizontal">
+      <li nz-menu-item><a href="#hero">Home</a></li>
+      <li nz-menu-item><a href="#about-us">About Us</a></li>
+      <li nz-menu-item><a href="#services">Services</a></li>
+      <li nz-menu-item><a href="#testimonials">Testimonials</a></li>
+      <li nz-menu-item><a href="#faq">FAQ</a></li>
+      <li nz-menu-item><a href="#contact">Contact</a></li>
+    </ul>
+  </nz-header>
+
+
+
+
+    <nz-row id="hero" class="hero" nzJustify="center" nzAlign="middle">
+      <nz-col nzSpan="12" class="hero-content">
+        <h1 style="color: navajowhite;">Welcome to <span style="color: black">Service</span><span
+          style="color: orangered;">Hub</span></h1>
+        <p style="color: navajowhite;">Connecting customers with trusted service providers</p>
+
+        <a nz-button nzType="primary" [nzSize]="'large'" nzShape="round" routerLink="/signup" routerLinkActive="active">
+          <nz-icon nzType="user-add"/>
+          Create Account
+        </a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-button nzType="primary" [nzSize]="'large'" nzShape="round" routerLink="/login" routerLinkActive="active">
+          <nz-icon nzType="user"/>
+          Login
+        </a>
+
+      </nz-col>
+    </nz-row>
+  <nz-content>
+
+    <div id="about-us">
+      <h3 class="submodule-header">About Us</h3>
+      <nz-row>
+        <nz-col class="image" nzSpan="12">
+          <img src="/frontend/about-us.png" alt="Hero Background">
+        </nz-col>
+        <nz-col class="about-us" nzSpan="12">
+          <p>ServiceHub is a comprehensive Service Listing and Booking API built using Spring Boot. The
+            platform enables administrators to onboard and manage service providers and their services.
+            Customers can browse listed services, book appointments, track bookings, and leave reviews. The
+            application also supports notifications, payment tracking, and audit logging for administrative
+            transparency.
+
+            This project serves as a foundation for building marketplace-style platforms for local services,
+            enabling seamless interaction between service providers and customers.</p>
+        </nz-col>
+      </nz-row>
+    </div>
+
+
+    <div id="services">
+      <h3 class="submodule-header">Our Services</h3>
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Home Services">
+            <div nz-row>
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/home-services.png"
+                                                              alt="Hero Background"
+                                                              width="100"></div>
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Cleaning Services <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Plumbing <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Electrical Repairs <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Home Renovations <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Pest Control
+              </div>
+            </div>
+          </nz-card>
+        </div>
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Personal Care & Wellness">
+            <div nz-row>
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/skin-care.png"
+                                                              alt="Hero Background"
+                                                              width="100"></div>
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Hair & Beauty Salons <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Massage Therapy <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Personal Training & Fitness <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Yoga & Meditation <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Spa & Wellness
+              </div>
+            </div>
+          </nz-card>
+        </div>
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Professional Services">
+            <div nz-row>
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/professional-services.png"
+                                                              alt="Hero Background" width="100"></div>
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Accounting & Bookkeeping <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Legal Consulting <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Marketing & Branding <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Business Coaching <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                IT Support & Software Development
+              </div>
+            </div>
+          </nz-card>
+        </div>
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Entertainment Services">
+            <div nz-row>
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/event-services.png"
+                                                              alt="Hero Background" width="100"></div>
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Wedding Planning <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Catering Services <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                DJs & Live Bands <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Event Decorations
+              </div>
+            </div>
+          </nz-card>
+        </div>
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Tech & Digital Services">
+            <div nz-row>
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/digital-services.png"
+                                                              alt="Hero Background" width="100"></div>
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Website Development <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Graphic Design <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Digital Marketing <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                SEO Services
+              </div>
+            </div>
+          </nz-card>
+        </div>
+        <div nz-col nzSpan="8" style="margin-top: 20px">
+          <nz-card nzTitle="Delivery & Moving Services">
+            <div nz-row>
+              <!--                            <nz-space [nzSize]="'large'" >-->
+              <div nz-col nzSpan="8" style="float: left"><img src="/frontend/moving-services.png"
+                                                              alt="Hero Background" width="100"></div>
+
+              <div nz-col nzSpan="16" style="float: right; text-align: left;">
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Courier & Parcel Delivery <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Furniture Moving <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                House Relocation <br>
+                <nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a"/>
+                Food & Grocery Delivery
+              </div>
+              <!--                            </nz-space>-->
+            </div>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="testimonials">
+      <h3 class="submodule-header">Testimonials</h3>
+      <nz-carousel nzAutoPlay>
+        <div nz-carousel-content style="margin-bottom: 5px; color:navajowhite;">
+          "Amazing platform! Found the perfect plumber in minutes."
+          <blockquote>- Steve</blockquote>
+          <br>
+        </div>
+        <div nz-carousel-content style="margin-bottom: 5px; color:navajowhite;">
+          "A game-changer for my business as a freelancer!"
+          <blockquote>- Denis</blockquote>
+          <br>
+        </div>
+        <div nz-carousel-content style="margin-bottom: 5px; color:navajowhite;">
+          "Highly recommend! Easy to use and reliable services."
+          <blockquote>- Amos</blockquote>
+          <br>
+        </div>
+      </nz-carousel>
+    </div>
+
+    <div id="faq">
+      <h3 class="submodule-header">FAQs</h3>
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }" style="justify-content: center">
+        <div nz-col nzSpan="10">
+          <h2>Customer</h2>
+          <nz-collapse nzAccordion>
+            <nz-collapse-panel [nzHeader]="'How do I book a service?'" [nzActive]="'active'">
+              <p>You can browse available services, select a provider, and book directly through the
+                platform. You
+                will receive a confirmation once the booking is successful.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'Is there a fee for using the platform?'">
+              <p>ServiceHub is free for customers. You only pay for the service you book, based on the
+                provider’s
+                pricing.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'How do I ensure the service provider is trustworthy?'">
+              <p>We verify providers and display customer reviews and ratings to help you make an informed
+                choice.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'What happens if I need to cancel or reschedule a service?'">
+              <p>You can manage your bookings from your account. Cancellation and rescheduling policies
+                vary by
+                provider.</p>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </div>
+        <div nz-col nzSpan="10">
+          <h2>Service Provider</h2>
+          <nz-collapse nzAccordion>
+            <nz-collapse-panel [nzHeader]="'How do I list my service on ServiceHub?'" [nzActive]="'active'">
+              <p>Sign up as a provider, complete your profile, and submit your service details for
+                approval. Once approved, customers can book your services.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'How does ServiceHub handle payments?'">
+              <p>Customers pay securely through the platform. We process the payment and transfer it to
+                your account after service completion.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'Can I set my own pricing?'">
+              <p>Yes, you have full control over your pricing, availability, and service terms.</p>
+            </nz-collapse-panel>
+            <nz-collapse-panel [nzHeader]="'What happens if a customer cancels a booking?'">
+              <p>Cancellations are subject to your set policy. You can specify if refunds or rescheduling
+                are allowed.</p>
+            </nz-collapse-panel>
+
+          </nz-collapse>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contact-wrapper">
+      <div id="contact">
+        <h3 class="submodule-header">Contact Us</h3>
+
+        <form nz-form class="contact-form" style="width: 100%">
+          <nz-form-item>
+            <nz-form-control style="width: 100%;margin-bottom: 10px;">
+              <nz-input-group>
+                <input nz-input placeholder="Your Name" required>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control style="width: 100%;margin-bottom: 10px;">
+              <nz-input-group>
+                <input nz-input placeholder="Your Email" type="email" required>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control style="width: 100%;margin-bottom: 10px;">
+              <nz-input-group>
+                <textarea nz-input rows="3" placeholder="Your Message" required></textarea>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <button nz-button class="contact-form-button contact-form-margin" [nzType]="'primary'"
+                  style="width: 100%">Send
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </nz-content>
+
+  <nz-footer class="footer">
+    <p style="margin-top: 50px">&copy; 2025 ServiceHub. All Rights Reserved.</p>
+    <nz-space>
+      <a href="#" target="_blank">Facebook</a>
+      <a href="#" target="_blank">Twitter</a>
+      <a href="#" target="_blank">Instagram</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </nz-space>
+  </nz-footer>
+</nz-layout>
+
+

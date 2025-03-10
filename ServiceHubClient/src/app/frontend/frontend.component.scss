@@ -1,0 +1,185 @@
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+
+  .text {
+    color: orangered;
+  }
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 10000;
+  background: white;
+  color: #001529;
+  transition: background 0.3s ease-in-out;
+}
+
+.header.scrolled {
+  //color: white;
+}
+
+.hero {
+  background: linear-gradient(to bottom, rgba(0, 21, 41, 0.7), rgba(0, 64, 128, 0.3)), url('/frontend/landing.png') center/cover no-repeat;
+  height: calc(100vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white !important;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: background 0.3s;
+}
+
+.scroll-down:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+nz-content {
+  background: white;
+  width: 85%;
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 0 !important;
+  text-align: center;
+}
+
+h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.submodule-header {
+  text-align: center;
+  justify-content: center;
+  border-radius: 40px;
+  background: orangered;
+  color: white;
+  display: inline-block;
+  padding: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+nz-card {
+  background-color: white;
+  box-shadow: 1px 1px 15px -2px rgba(0, 0, 5, 0.5);
+  border-radius: 10px;
+}
+
+.about-us, .services, .testimonials, .faq, .blog, .contact {
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-family: 'Cambria', sans-serif;
+  line-height: 2em;
+  font-size: 18px;
+  color: #313e3b;
+}
+
+#services {
+  //margin-bottom: 20px;
+  position: relative;
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to bottom, rgba(0, 21, 41, 0.8), rgba(0, 64, 128, 0.8)),
+  url('/frontend/service-background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+#testimonials {
+  margin-bottom: 20px;
+  position: relative;
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to bottom, rgba(0, 21, 41, 0.8), rgba(0, 64, 128, 0.8)),
+  url('/frontend/service-background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+#faq {
+  margin: 0 auto 20px;
+  height: 45vh;
+}
+
+.contact-wrapper {
+  position: relative;
+  padding: 50px 20px;
+  text-align: center;
+  color: white;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+  url('/frontend/footer-background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+#contact {
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+}
+
+.footer {
+  background: #001529;
+  color: white;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  height: 20vh;
+  background: linear-gradient(to bottom, rgba(254, 0, 254, 0.9), rgba(0, 0, 0, 0.9)),
+  url('/frontend/footer-background.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+}
+
+.footer a {
+  color: #1890ff;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.footer a:hover {
+  color: #40a9ff;
+}
