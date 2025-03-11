@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
+@Table(name = "users")
 public abstract class User implements UserDetails {
 
     @Id
@@ -23,6 +24,7 @@ public abstract class User implements UserDetails {
     private Long id;
 
     private String fullName;
+    @Column(unique = true)
     private String username;
     @Column(unique = true)
     private String email;
@@ -35,6 +37,11 @@ public abstract class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
@@ -56,4 +63,5 @@ public abstract class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

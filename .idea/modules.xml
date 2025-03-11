@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ServiceHub/ServiceHub.iml" filepath="$PROJECT_DIR$/ServiceHub/ServiceHub.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ServiceHubX.iml" filepath="$PROJECT_DIR$/.idea/ServiceHubX.iml" />
     </modules>
   </component>

@@ -2,24 +2,24 @@
 
 ## 📝 Project Description
 
-**ServiceHub** is a comprehensive **Service Listing and Booking API** built using **Spring Boot**. The platform enables administrators to onboard and manage **service providers** and their services. Customers can browse listed services, book appointments, track bookings, and leave reviews. The application also supports **notifications**, **payment tracking**, and **audit logging** for administrative transparency.
+**ServiceHub** is a comprehensive **Service Listing and Booking API** built using **Spring Boot**. The platform enables administrators to onboard and manage **providerService providers** and their services. Customers can browse listed services, book appointments, track bookings, and leave reviews. The application also supports **notifications**, **payment tracking**, and **audit logging** for administrative transparency.
 
-This project serves as a foundation for building **marketplace-style platforms** for local services, enabling seamless interaction between service providers and customers.
+This project serves as a foundation for building **marketplace-style platforms** for local services, enabling seamless interaction between providerService providers and customers.
 
 ---
 
 ## ✨ Key Features
 
 ### 👥 User Roles
-- **Admin** - Manages service providers, services, and monitors platform activity.
+- **Admin** - Manages providerService providers, services, and monitors platform activity.
 - **Service Provider** - Lists services and manages bookings received from customers.
 - **Customer** - Browses services, books appointments, and leaves reviews.
 
 ### 📚 Core Functionalities
 - **Service Listing** - Service providers can list services with details such as description, price, and category.
-- **Service Booking** - Customers can book available services, and service providers get notified.
+- **Service Booking** - Customers can book available services, and providerService providers get notified.
 - **Reviews & Ratings** - Customers can rate and review services they’ve booked.
-- **Notifications** - Users receive notifications for booking confirmations, cancellations, and service updates.
+- **Notifications** - Users receive notifications for booking confirmations, cancellations, and providerService updates.
 - **Payments (optional)** - Tracks payments made for services.
 - **Audit Logs** - Admin can view logs of key actions performed on the platform.
 
@@ -56,7 +56,7 @@ The application follows a **layered architecture**:
 | Entity | Description |
 |---|---|
 | **User** | Base class for Admin, ServiceProvider, Customer |
-| **Service** | Service provided by a service provider |
+| **Service** | Service provided by a providerService provider |
 | **ServiceCategory** | Categories like cleaning, plumbing, etc. |
 | **Booking** | Service booking made by a customer |
 | **Review** | Reviews and ratings from customers |
@@ -78,10 +78,10 @@ The application follows a **layered architecture**:
 
 | Method | Endpoint | Description | Roles |
 |---|---|---|---|
-| `POST` | `/api/services` | Create a new service | `SERVICE_PROVIDER` |
+| `POST` | `/api/services` | Create a new providerService | `SERVICE_PROVIDER` |
 | `GET` | `/api/services` | Get all services | `ANY` |
-| `POST` | `/api/bookings` | Book a service | `CUSTOMER` |
-| `POST` | `/api/reviews` | Leave a review for a service | `CUSTOMER` |
+| `POST` | `/api/bookings` | Book a providerService | `CUSTOMER` |
+| `POST` | `/api/reviews` | Leave a review for a providerService | `CUSTOMER` |
 | `GET` | `/api/audit-logs` | View audit logs | `ADMIN` |
 
 ---

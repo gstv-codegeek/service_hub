@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(name = "reviews")
 public class Review {
 
     @Id
@@ -20,7 +21,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private ProviderService providerService;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -28,3 +29,6 @@ public class Review {
 
     private LocalDateTime reviewDate;
 }
+
+
+

@@ -16,5 +16,4 @@ import java.util.List;
 @DiscriminatorValue("ADMIN")
 public class Admin extends  User{
 
-
 }

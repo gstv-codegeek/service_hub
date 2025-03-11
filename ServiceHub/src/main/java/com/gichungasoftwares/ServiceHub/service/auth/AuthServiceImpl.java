@@ -1,11 +1,9 @@
 package com.gichungasoftwares.ServiceHub.service.auth;
 
-import com.gichungasoftwares.ServiceHub.configuration.JwtAuthenticationFilter;
-import com.gichungasoftwares.ServiceHub.configuration.WebSecurityConfiguration;
 import com.gichungasoftwares.ServiceHub.dto.UserDto;
 import com.gichungasoftwares.ServiceHub.entity.user.Admin;
 import com.gichungasoftwares.ServiceHub.entity.user.Customer;
-import com.gichungasoftwares.ServiceHub.entity.user.ServiceProvider;
+import com.gichungasoftwares.ServiceHub.entity.user.Provider;
 import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.enums.UserRole;
 import com.gichungasoftwares.ServiceHub.repository.UserRepository;
@@ -16,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +31,11 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Optional<User> getUserWithEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @PostConstruct
@@ -96,7 +98,7 @@ public class AuthServiceImpl implements AuthService{
             throw new IllegalArgumentException("User with this email already exists");
         }
         try {
-            ServiceProvider newProvider = new ServiceProvider();
+            Provider newProvider = new Provider();
             newProvider.setFullName(signupRequest.getFullName());
             newProvider.setUsername(signupRequest.getUsername());
             newProvider.setEmail(signupRequest.getEmail());
@@ -106,7 +108,7 @@ public class AuthServiceImpl implements AuthService{
             newProvider.setBusinessName(signupRequest.getBusinessName());
             newProvider.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
 
-            ServiceProvider createdProvider = userRepository.save(newProvider);
+            Provider createdProvider = userRepository.save(newProvider);
             logger.info("Service Provider record created successfully");
 
             return userMapper.toUserDto(createdProvider);
@@ -115,7 +117,7 @@ public class AuthServiceImpl implements AuthService{
             logger.warn("Error while creating service provider record");
             throw new RuntimeException("Could not create provider");
         }
-    }
 
+    }
 
 }

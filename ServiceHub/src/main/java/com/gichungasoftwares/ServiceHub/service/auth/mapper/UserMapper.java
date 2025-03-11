@@ -1,8 +1,7 @@
 package com.gichungasoftwares.ServiceHub.service.auth.mapper;
 
 import com.gichungasoftwares.ServiceHub.dto.UserDto;
-import com.gichungasoftwares.ServiceHub.entity.user.Customer;
-import com.gichungasoftwares.ServiceHub.entity.user.ServiceProvider;
+import com.gichungasoftwares.ServiceHub.entity.user.Provider;
 import com.gichungasoftwares.ServiceHub.entity.user.User;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ public class UserMapper {
         userDto.setUsername(createdUser.getUsername());
         userDto.setEmail(createdUser.getEmail());
         userDto.setPhoneNumber(createdUser.getPhoneNumber());
-        if (createdUser instanceof ServiceProvider provider) {
+        if (createdUser instanceof Provider provider) {
             userDto.setBusinessName(provider.getBusinessName());
         } else {
             userDto.setBusinessName(null);
