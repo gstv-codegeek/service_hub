@@ -35,6 +35,7 @@ public class Booking {
         bookingDto.setServiceId(providerService.getId());
         bookingDto.setCustomerId(customer.getId());
         bookingDto.setBookingStatus(bookingStatus);
+        bookingDto.setBookingDate(bookingDate);
         return bookingDto;
     }
 }
