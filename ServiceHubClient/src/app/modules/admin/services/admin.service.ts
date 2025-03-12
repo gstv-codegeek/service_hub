@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {StorageService} from '../../../auth/services/storage/storage.service';
 
-const BASE_URL = ["http://localhost:8080/api/v1/admin"]
+const BASE_URL = ["http://localhost:8080/api/v1"]
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +24,28 @@ export class AdminService {
     );
   }
 
+  // =========== USER SERVICES ============= //
+  getAllProviders() {
+    return this.http.get(BASE_URL + "/auth/providers", {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getAllCustomers() {
+    return this.http.get(BASE_URL + "/auth/customers", {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  // ===========CATEGORY SERVICES =============== //
   createCategory(categoryDto: any): Observable<any> {
-    return this.http.post(BASE_URL + "/category", categoryDto, {
+    return this.http.post(BASE_URL + "/admin/category", categoryDto, {
       headers: this.createAuthorizationHeader()
     });
   }
 
   getAllCategories(): Observable<any> {
-    return this.http.get(BASE_URL + "/categories", {
+    return this.http.get(BASE_URL + "/admin/categories", {
       headers: this.createAuthorizationHeader()
     });
   }
@@ -39,14 +53,29 @@ export class AdminService {
 
   //=========== PROVIDER SERVICES ==============//
   createService(serviceDto: any): Observable<any> {
-    return this.http.post(BASE_URL + "/service", serviceDto, {
+    return this.http.post(BASE_URL + "/admin/service", serviceDto, {
       headers: this.createAuthorizationHeader()
     });
   }
 
   getAllServices(): Observable<any> {
-    return this.http.get(BASE_URL + "/services", {
+    return this.http.get(BASE_URL + "/admin/services", {
       headers: this.createAuthorizationHeader()
-    })
+    });
   }
+
+  // ============== BOOKING SERVICES =================== //
+  bookService(bookingDto: any): Observable<any> {
+    return this.http.post(BASE_URL + "/admin/service/book", bookingDto, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getAllBookings(): Observable<any> {
+    return this.http.get(BASE_URL + "/admin/services", {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+
 }

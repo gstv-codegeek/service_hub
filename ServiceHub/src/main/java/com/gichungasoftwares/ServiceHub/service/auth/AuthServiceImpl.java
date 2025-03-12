@@ -17,7 +17,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -118,6 +120,22 @@ public class AuthServiceImpl implements AuthService{
             throw new RuntimeException("Could not create provider");
         }
 
+    }
+
+    @Override
+    public List<UserDto> getAllProviders() {
+        return userRepository.findAllByUserRole(UserRole.ROLE_SERVICE_PROVIDER)
+                .stream()
+                .map(User::toUserDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDto> getAllCustomers() {
+        return userRepository.findAllByUserRole(UserRole.ROLE_CUSTOMER)
+                .stream()
+                .map(User::toUserDto)
+                .collect(Collectors.toList());
     }
 
 }

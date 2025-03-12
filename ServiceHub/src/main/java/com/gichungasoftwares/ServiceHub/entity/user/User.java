@@ -1,5 +1,6 @@
 package com.gichungasoftwares.ServiceHub.entity.user;
 
+import com.gichungasoftwares.ServiceHub.dto.UserDto;
 import com.gichungasoftwares.ServiceHub.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -62,6 +63,24 @@ public abstract class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDto toUserDto() {
+        UserDto userDto = new UserDto();
+        userDto.setId(id);
+        userDto.setFullName(fullName);
+        userDto.setUsername(username);
+        userDto.setEmail(email);
+        userDto.setPhoneNumber(phoneNumber);
+        userDto.setIdNumber(idNumber);
+        userDto.setUserRole(userRole);
+
+        // If it's a provider, set the business name
+        if (this instanceof Provider provider) {
+            userDto.setBusinessName(provider.getBusinessName());
+        }
+
+        return userDto;
     }
 
 }

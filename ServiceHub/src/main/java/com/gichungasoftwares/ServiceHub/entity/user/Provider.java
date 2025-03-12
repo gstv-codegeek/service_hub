@@ -1,5 +1,6 @@
 package com.gichungasoftwares.ServiceHub.entity.user;
 
+import com.gichungasoftwares.ServiceHub.dto.UserDto;
 import com.gichungasoftwares.ServiceHub.entity.ProviderService;
 import jakarta.persistence.*;
 import lombok.*;

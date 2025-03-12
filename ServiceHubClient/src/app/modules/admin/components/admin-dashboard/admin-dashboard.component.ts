@@ -24,11 +24,12 @@ export class AdminDashboardComponent {
   categoryForm!: FormGroup;
   categories: any = [];
 
-  constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {
-
-  }
+  constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit() {
+    this.getAllProviders();
+    this.getAllCustomers();
+
     this.categoryForm = this.fb.group({
       categoryName: [null, [Validators.required]],
     });
@@ -42,8 +43,44 @@ export class AdminDashboardComponent {
       categoryId: [null, [Validators.required]],
     });
     this.getAllServices();
+
+    this.bookingForm = this.fb.group({
+      customerId: [null, [Validators.required]],
+      serviceId: [null, [Validators.required]],
+    });
+    this.getAllBookings();
   }
 
+  // ==== logic starts ==== //
+
+  // ========= USER METHODS ========== //
+  providers: any = [];
+  customers: any = [];
+  getAllProviders(): any {
+    this.isSpinning = true;
+    this.adminService.getAllProviders().subscribe({
+      next: (res) => {
+        this.isSpinning = false;
+        this.providers = res;
+        console.log("All Providers: ", res);
+      },
+      error: (err) => {this.isSpinning = false; this.message.error("Something went wrong");}
+    });
+  }
+
+  getAllCustomers(): any {
+    this.isSpinning = true;
+    this.adminService.getAllCustomers().subscribe({
+      next: (res) => {
+        this.isSpinning = false;
+        this.customers = res;
+        console.log("All Customers: ", res);
+      },
+      error: (err) => {this.isSpinning = false; this.message.error("Something went wrong");}
+    });
+  }
+
+  // ========= CATEGORY METHODS ======== //
   createCategory() {
     this.isSpinning = true;
     this.adminService.createCategory(this.categoryForm.value).subscribe({
@@ -65,7 +102,7 @@ export class AdminDashboardComponent {
       next: (res) => {
         this.isSpinning = false;
         this.categories = res;
-        console.log(res);
+        console.log("ALl Categories: ", res);
       },
       error: (err) => {this.isSpinning = false; this.message.error("Something went wrong");}
     });
@@ -91,11 +128,45 @@ export class AdminDashboardComponent {
   }
 
   getAllServices() {
+    this.isSpinning = true
     this.adminService.getAllServices().subscribe({
       next: (res) => {
         this.isSpinning = false;
         this.services = res;
+        console.log("All Services: ", res);
+      },
+      error: (err) => {
+        this.isSpinning = false;
+        this.message.error("Something went wrong");
+      }
+    })
+  }
 
+  //============== BOOKING METHODS ============ //
+  bookingForm!: FormGroup;
+  bookings: any = [];
+
+  bookService() {
+    this.isSpinning = true;
+    this.adminService.bookService(this.bookingForm.value).subscribe({
+      next: (res) => {
+        this.isSpinning = false;
+        this.message.success("Service have been booked successfully");
+      },
+      error: (err) => {
+        this.isSpinning = false;
+        this.message.error("Something went wrong");
+      }
+    });
+  }
+
+  getAllBookings() {
+    this.isSpinning = true
+    this.adminService.getAllBookings().subscribe({
+      next: (res) => {
+        this.isSpinning = false;
+        this.bookings = res;
+        console.log("All Bookings: ", res);
       },
       error: (err) => {
         this.isSpinning = false;
