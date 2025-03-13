@@ -1,0 +1,34 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
+  <h3>CUSTOMER BOOKINGS</h3>
+  <nz-table #basicTable [nzData]="bookings" [nzPageSize]="20" [nzShowPagination]="'false'">
+    <thead>
+    <tr>
+      <th style="font-weight: bolder; color: #003973;">Customer</th>
+      <th style="font-weight: bolder; color: #003973;">Service</th>
+      <th style="font-weight: bolder; color: #003973;">Booking Date</th>
+      <th style="font-weight: bolder; color: #003973;">Approval Status</th>
+      <th style="font-weight: bolder; color: #003973;">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let booking of basicTable.data">
+      <td>{{ booking.customerId }}</td>
+      <td>{{ booking.serviceId }}</td>
+      <td>{{ booking.bookingDate | date: 'MMM d, y' }}</td>
+      <td>
+        <strong
+          [ngStyle]="{'color': booking.bookingStatus === 'Pending' ? 'green' : booking.bookingStatus === 'Rejected' ? 'red' : booking.bookingStatus === 'Pending' ? 'grey': ''}">
+          {{ booking.bookingStatus }}
+        </strong>
+      </td>
+      <td>
+        <span *ngIf="booking.bookingStatus === 'Pending'">
+          <button style="margin-left: 10px;" nz-button nzSize="small" nzType="primary">Approve</button>
+          <button style="margin-left: 10px;" nz-button nzSize="small" nzType="primary" nzDanger>Reject</button>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-spin>
+

@@ -44,7 +44,7 @@ public class BookingServiceImpl implements BookingService {
         try {
             Booking booking = new Booking();
             booking.setBookingDate(LocalDateTime.now());
-            booking.setBookingStatus(BookingStatus.STATUS_PENDING);
+            booking.setBookingStatus(BookingStatus.Pending);
             booking.setCustomer((Customer) customer);
             booking.setProviderService(service);
             Booking createdBooking = bookingRepository.save(booking);

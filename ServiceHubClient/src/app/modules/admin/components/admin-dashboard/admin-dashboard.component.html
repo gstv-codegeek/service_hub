@@ -1,47 +1,11 @@
-<!-- ======== CREATE CATEGORIES =========-->
-<nz-spin [nzSpinning]="isSpinning">
-  <h3>Create Category</h3>
-  <form [formGroup]="categoryForm">
-    <input nz-input type="text" formControlName="categoryName" placeholder="Enter Service Category">
-    <button nz-button (click)="createCategory()" nzType="primary">Submit</button>
-  </form>
-</nz-spin>
 
 
 <!-- ======== CREATE CATEGORIES =========-->
-<nz-spin [nzSpinning]="isSpinning">
-  <h3>Create Service</h3>
-  <form [formGroup]="serviceForm">
-    <select formControlName="categoryId">
-      <option value="1">Home Services</option>
-      <option value="2">Personal Care & Wellness</option>
-      <option value="3">Professional Services</option>
-    </select>
-    <input nz-input type="text" formControlName="serviceName" placeholder="Service Name">
-    <input nz-input type="text" formControlName="description" placeholder="Description">
-    <input nz-input type="number" formControlName="price" placeholder="price" step="1">
-    <select formControlName="providerId">
-      <option value="2">TELESCOPE TECHNOLOGIES</option>
-    </select>
-    <button nz-button (click)="createService()" nzType="primary">Submit</button>
-  </form>
-</nz-spin>
+
 
 
 
 <!--============ BOOK A SERVICE ================ -->
-<nz-spin [nzSpinning]="isSpinning">
-  <h3>BOOK A Service</h3>
-  <form [formGroup]="bookingForm">
-    <select formControlName="customerId">
-      <option value="3">Customer One</option>
-    </select>
-    <select formControlName="serviceId">
-      <option value="2">Plumbing</option>
-      <option value="3">Electrical Repairs</option>
-      <option value="4">Home Renovations</option>
-      <option value="5">Pest Control</option>
-    </select>
-    <button nz-button (click)="bookService()" nzType="primary">Submit</button>
-  </form>
-</nz-spin>
+
+
+

@@ -7,6 +7,7 @@ import {NgZorroImportsModule} from '../../NgZorroImportsModule';
 import {StorageService} from '../../auth/services/storage/storage.service';
 import {NgIf} from '@angular/common';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {NzTabLinkDirective} from 'ng-zorro-antd/tabs';
 
 @Component({
   selector: 'app-authorized-user-layout',
@@ -21,6 +22,7 @@ import {NzMessageService} from 'ng-zorro-antd/message';
     RouterLinkActive,
     NgIf,
     RouterOutlet,
+    NzTabLinkDirective,
   ],
   templateUrl: './authorized-user-layout.component.html',
   styleUrl: './authorized-user-layout.component.scss'

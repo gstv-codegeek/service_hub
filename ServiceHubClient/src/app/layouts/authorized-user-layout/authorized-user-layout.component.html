@@ -33,48 +33,37 @@
       <span class="text">ServiceHub</span>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
-      <li nz-submenu nzTitle="Providers" nzIcon="user" [(nzOpen)]="openMap['sub1']"
+      <li nz-menu-item ><a style="padding: 0" routerLink="/admin/dashboard" routerLinkActive="active"> <nz-icon nzType="dashboard" nzTheme="outline" /> Dashboard</a></li>
+      <li nz-submenu nzTitle="Providers" nzIcon="solution" [(nzOpen)]="openMap['sub1']"
           (nzOpenChange)="openHandler('sub1')">
         <ul>
-          <li nz-menu-group nzTitle="Item 1">
+          <li>
             <ul>
-              <li nz-menu-item>Option 1</li>
-              <li nz-menu-item>Option 2</li>
-            </ul>
-          </li>
-          <li nz-menu-group nzTitle="Item 2">
-            <ul>
-              <li nz-menu-item>Option 3</li>
-              <li nz-menu-item>Option 4</li>
+              <li nz-menu-item><a routerLink="/admin/providers" routerLinkActive="active">All Providers</a></li>
+              <li nz-menu-item><a routerLink="/admin/provider/edit" routerLinkActive="active">Edit Profile</a></li>
             </ul>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Customers" nzIcon="user" [(nzOpen)]="openMap['sub2']"
+      <li nz-submenu nzTitle="Customers" nzIcon="team" [(nzOpen)]="openMap['sub2']"
           (nzOpenChange)="openHandler('sub2')">
         <ul>
-          <li nz-menu-item>Option 5</li>
-          <li nz-menu-item>Option 6</li>
-          <li nz-submenu nzTitle="Submenu">
-            <ul>
-              <li nz-menu-item>Option 7</li>
-              <li nz-menu-item>Option 8</li>
-            </ul>
-          </li>
+          <li nz-menu-item><a routerLink="/admin/customers" routerLinkActive="active">All Customers</a></li>
+          <li nz-menu-item><a routerLink="/admin/customer/edit" routerLinkActive="active">Edit Profile</a></li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Bookings" nzIcon="user" [(nzOpen)]="openMap['sub3']" (nzOpenChange)="openHandler('sub3')">
+      <li nz-submenu nzTitle="Booking" nzIcon="table" [(nzOpen)]="openMap['sub3']"
+          (nzOpenChange)="openHandler('sub3')">
         <ul>
-          <li nz-menu-item>Option 9</li>
-          <li nz-menu-item>Option 10</li>
-          <li nz-menu-item>Option 11</li>
+          <li nz-menu-item><a routerLink="/admin/service/book" routerLinkActive="active">Book Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/bookings" routerLinkActive="active">All Bookings</a></li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Services" nzIcon="user" [(nzOpen)]="openMap['sub4']" (nzOpenChange)="openHandler('sub4')">
+      <li nz-submenu nzTitle="Services" nzIcon="issues-close" [(nzOpen)]="openMap['sub4']"
+          (nzOpenChange)="openHandler('sub4')">
         <ul>
-          <li nz-menu-item>Option 9</li>
-          <li nz-menu-item>Option 10</li>
-          <li nz-menu-item>Option 11</li>
+          <li nz-menu-item><a routerLink="/admin/services" routerLinkActive="active">All Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/service/create" routerLinkActive="active">Create Service</a></li>
         </ul>
       </li>
     </ul>
@@ -84,11 +73,11 @@
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu" *ngIf="isAdminLoggedIn">
-        <li nz-menu-item nzSelected><a routerLink="/admin/dashboard" routerLinkActive="active" nz-button nzType="link">Admin
+        <li nz-menu-item nzSelected><a routerLink="/admin/dashboard" routerLinkActive="active">Admin
           Dashboard</a></li>
-        <li nz-menu-item><a routerLink="/admin/search" routerLinkActive="active" nz-button nzType="link">Search
+        <li nz-menu-item><a routerLink="/admin/search" routerLinkActive="active">Search
           Services</a></li>
-        <li nz-menu-item><a routerLinkActive="active" nz-button nzType="link" (click)="logout()">Logout</a></li>
+        <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>
 

@@ -72,7 +72,7 @@ export class AdminService {
   }
 
   getAllBookings(): Observable<any> {
-    return this.http.get(BASE_URL + "/admin/services", {
+    return this.http.get(BASE_URL + "/admin/bookings", {
       headers: this.createAuthorizationHeader()
     });
   }
