@@ -28,12 +28,15 @@ export class AllBookingsComponent {
   bookings: any = [];
   users: any = [];
   userMap = new Map<number, string>();
+  services: any = [];
+  serviceMap = new Map<number, string>();
 
   constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit() {
     this.getAllBookings();
     this.getAllUsers();
+    this.getAllServices();
   }
 
   getAllBookings() {
@@ -54,6 +57,25 @@ export class AllBookingsComponent {
   createUserMap() {
     this.users.forEach((user: any) => {
       this.userMap.set(user.id, user.fullName)
+    })
+  }
+
+  createServiceMap() {
+    this.services.forEach((service: any) => {
+      this.serviceMap.set(service.id, service.serviceName)
+    })
+  }
+
+  getAllServices() {
+    this.adminService.getAllServices().subscribe({
+      next: (res) => {
+        this.services = res;
+        this.createServiceMap();
+        console.log("All Services: ", res);
+      },
+      error: (err) => {
+        this.message.error("Could not get services");
+      }
     })
   }
 
@@ -87,12 +109,19 @@ export class AllBookingsComponent {
     });
   }
 
-  changeStatus(id:number, status:string) {
+  changeStatus(bookingId:number, status:string) {
     this.isSpinning = true;
-    this.adminService.changeBookingStatus(id, status).subscribe({
-      next: () => {
+    this.adminService.changeBookingStatus(bookingId, status).subscribe({
+      next: (res) => {
         this.isSpinning = false;
+        const index = this.bookings.findIndex((b: { id: number; }) => b.id === bookingId);
+        if (index !== -1) {
+          this.bookings[index].bookingStatus = status;
+          this.bookings = [...this.bookings];
+        }
         this.message.success("Booking updated successfully!", {nzDuration: 5000});
+
+        this.getAllBookings();
       },
       error: () => {
         this.isSpinning = false;
@@ -101,11 +130,13 @@ export class AllBookingsComponent {
     });
   }
 
-  deleteBooking(id:number) {
+  deleteBooking(bookingId:number) {
     this.isSpinning = true;
-    this.adminService.deleteBooking(id).subscribe({
-      next: () => {
+    this.adminService.deleteBooking(bookingId).subscribe({
+      next: (res) => {
         this.isSpinning = false;
+        this.bookings = this.bookings.filter((b: { id: number; }) => b.id !== bookingId);
+        this.getAllBookings();
         this.message.success("Booking was deleted successfully", {nzDuration: 5000});
       },
       error: () => {

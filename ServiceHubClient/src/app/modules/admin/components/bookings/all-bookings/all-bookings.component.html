@@ -13,18 +13,22 @@
     <tbody>
     <tr *ngFor="let booking of basicTable.data">
       <td>{{ userMap.get(booking.customerId) || 'Unknown Customer' }}</td>
-      <td>{{ booking.serviceId }}</td>
+      <td>{{ serviceMap.get(booking.serviceId) || 'Unknown Service' }}</td>
       <td>{{ booking.bookingDate | date: 'MMM d, y' }}</td>
       <td>
-        <strong
-          [ngStyle]="{'color': booking.bookingStatus === 'Pending' ? 'green' : booking.bookingStatus === 'Rejected' ? 'red' : booking.bookingStatus === 'Pending' ? 'grey': ''}">
-          <button mat-stroked-button>{{ booking.bookingStatus }}</button>
+        <strong>
+          <button
+            [ngStyle]="{'color': booking.bookingStatus === 'Pending' ? 'grey' : booking.bookingStatus === 'Rejected' ? 'red' : booking.bookingStatus === 'Approved' ? 'green': ''}"
+            mat-stroked-button>{{ booking.bookingStatus }}
+          </button>
         </strong>
       </td>
       <td>
         <span *ngIf="booking.bookingStatus === 'Pending'">
-          <button style="margin-left: 10px;" mat-flat-button (click)="changeStatus(booking.id, 'Approve')">Approve</button>
-          <button style="margin-left: 10px;background: #ffc107" mat-flat-button (click)="changeStatus(booking.id, 'Reject')">Reject</button>
+          <button style="margin-left: 10px;" mat-flat-button
+                  (click)="changeStatus(booking.id, 'Approve')">Approve</button>
+          <button style="margin-left: 10px;background: #ffc107" mat-flat-button
+                  (click)="changeStatus(booking.id, 'Reject')">Reject</button>
           <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
         </span>
       </td>
