@@ -6,6 +6,7 @@ import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzTableComponent} from 'ng-zorro-antd/table';
 import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-all-services',
@@ -16,7 +17,8 @@ import {NzButtonComponent} from 'ng-zorro-antd/button';
     NgStyle,
     NzButtonComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    MatButton
   ],
   templateUrl: './all-services.component.html',
   styleUrl: './all-services.component.scss'

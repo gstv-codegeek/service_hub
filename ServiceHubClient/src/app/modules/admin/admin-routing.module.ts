@@ -7,11 +7,19 @@ import {AllCategoriesComponent} from './components/categories/all-categories/all
 import {BookServiceComponent} from './components/bookings/book-service/book-service.component';
 import {AllServicesComponent} from './components/solutions/all-services/all-services.component';
 import {AllBookingsComponent} from './components/bookings/all-bookings/all-bookings.component';
+import {ProvidersComponent} from './components/users/providers/all-providers/providers.component';
+import {CustomersComponent} from './components/users/customers/all-customers/customers.component';
+import {UpdateCustomerComponent} from './components/users/customers/update-customer/update-customer.component';
+import {UpdateProviderComponent} from './components/users/providers/update-provider/update-provider.component';
 
 const routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: 'dashboard' },
   { path: 'dashboard', component:  AdminDashboardComponent, canActivate: [authGuard]},
   { path: 'categories', component:  AllCategoriesComponent, canActivate: [authGuard]},
+  { path: 'providers', component:  ProvidersComponent, canActivate: [authGuard]},
+  { path: 'provider/update', component:  UpdateProviderComponent, canActivate: [authGuard]},
+  { path: 'clients', component:  CustomersComponent, canActivate: [authGuard]},
+  { path: 'client/update', component:  UpdateCustomerComponent, canActivate: [authGuard]},
   { path: 'category/create', component:  CreateCategoryComponent, canActivate: [authGuard]},
   { path: 'services', component:  AllServicesComponent, canActivate: [authGuard]},
   { path: 'service/book', component:  BookServiceComponent, canActivate: [authGuard]},

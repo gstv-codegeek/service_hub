@@ -7,6 +7,7 @@ import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabe
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
 import {NgForOf} from '@angular/common';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-book-service',
@@ -20,7 +21,8 @@ import {NgForOf} from '@angular/common';
     NzFormLabelComponent,
     NzSelectComponent,
     NzOptionComponent,
-    NgForOf
+    NgForOf,
+    MatButton
   ],
   templateUrl: './book-service.component.html',
   styleUrl: './book-service.component.scss'

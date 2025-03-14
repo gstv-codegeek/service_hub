@@ -10,6 +10,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AuthService} from '../../services/auth/auth.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {StorageService} from '../../services/storage/storage.service';
+import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,10 @@ import {StorageService} from '../../services/storage/storage.service';
     NzRowDirective,
     NzSpinComponent,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonToggle,
+    MatIcon,
+    MatButtonToggleGroup
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

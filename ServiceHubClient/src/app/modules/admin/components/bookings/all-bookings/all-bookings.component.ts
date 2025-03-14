@@ -6,6 +6,7 @@ import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzTableComponent} from 'ng-zorro-antd/table';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-all-bookings',
@@ -16,7 +17,8 @@ import {NzTableComponent} from 'ng-zorro-antd/table';
     NzSpinComponent,
     NzTableComponent,
     NgStyle,
-    DatePipe
+    DatePipe,
+    MatButton
   ],
   templateUrl: './all-bookings.component.html',
   styleUrl: './all-bookings.component.scss'

@@ -10,14 +10,20 @@
           </div>
         </div>
 
+        <mat-button-toggle-group name="signupForm" aria-label="Signup Form" style="margin: 15px; justify-content: center" [(ngModel)]="userType">
+          <mat-button-toggle value="customer" checked>Customer</mat-button-toggle>
+          <mat-button-toggle value="provider">Service Provider</mat-button-toggle>
+        </mat-button-toggle-group>
+
+
         <form nz-form [formGroup]="signupForm">
 
-          <nz-form-item>
+          <nz-form-item *ngIf="userType === 'provider'">
             <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
-              <input nz-input placeholder="User Name" id="userName" formControlName="username">
+              <input nz-input placeholder="Business Name" id="businessName" formControlName="businessName">
               <ng-template #userErrorTpl let-control>
                 <ng-container *ngIf="control.hasError('required')">
-                  Please input your Username!
+                  Please input your Business Name!
                 </ng-container>
               </ng-template>
             </nz-form-control>

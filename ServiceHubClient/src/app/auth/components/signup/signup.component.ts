@@ -6,9 +6,10 @@ import {NgIf} from '@angular/common';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {Router, RouterLink} from '@angular/router';
 import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
+import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,10 @@ import {NzMessageService} from 'ng-zorro-antd/message';
     RouterLink,
     NzRowDirective,
     NzColDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonToggle,
+    MatButtonToggleGroup,
+    FormsModule
 
   ],
   templateUrl: './signup.component.html',
@@ -33,6 +37,7 @@ export class SignupComponent {
 
   isSpinning: boolean = false;
   signupForm!: FormGroup;
+  userType: string = 'customer';
 
   constructor(private router: Router,
               private fb: FormBuilder,
@@ -42,7 +47,7 @@ export class SignupComponent {
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-      username: [null, [Validators.required]],
+      businessName: [null, [Validators.required]],
       fullName: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       phoneNumber: [null, [Validators.required]],
@@ -60,6 +65,7 @@ export class SignupComponent {
     }
     return {};
   }
+
 
   register() {
     this.authService.register(this.signupForm.value).subscribe({
