@@ -47,14 +47,28 @@ export class SignupComponent {
 
   ngOnInit() {
     this.signupForm = this.fb.group({
-      businessName: [null, [Validators.required]],
-      fullName: [null, [Validators.required]],
+      businessName: [null],
+      fullName: [null],
       email: [null, [Validators.required, Validators.email]],
       phoneNumber: [null, [Validators.required]],
       idNumber: [null, [Validators.required]],
+      // password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}&/)]],
       password: [null, [Validators.required]],
       confirmPassword: [null, [Validators.required, this.validateConfirmPassword]],
     });
+  }
+
+  onUserTypeChange(userType: string) {
+    this.userType = userType;
+    if (userType === 'provider') {
+      this.signupForm.get('businessName')?.setValidators(Validators.required);
+      this.signupForm.get('fullName')?.clearValidators();
+    } else {
+      this.signupForm.get('fullName')?.setValidators(Validators.required);
+      this.signupForm.get('businessName')?.clearValidators();
+    }
+    this.signupForm.get('businessName')?.updateValueAndValidity();
+    this.signupForm.get('fullName')?.updateValueAndValidity();
   }
 
   validateConfirmPassword = (control: FormControl): { [s: string]: boolean } => {
@@ -68,15 +82,19 @@ export class SignupComponent {
 
 
   register() {
-    this.authService.register(this.signupForm.value).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.message.success("Signup successful", {nzDuration: 5000});
-        this.router.navigate(["login"]);
-      },
-      error: (err) => {this.message.error("Something went wrong", {nzDuration: 5000})}
-    });
+    console.log(this.signupForm.value);
+    if (this.signupForm.valid) {
+      this.authService.register(this.signupForm.value).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.message.success("Signup successful. Please login!", {nzDuration: 5000});
+          this.router.navigate(["login"]);
+        },
+        error: (err) => {this.message.error("Something went wrong", {nzDuration: 5000})}
+      });
+    }
   }
+
 
 
 }

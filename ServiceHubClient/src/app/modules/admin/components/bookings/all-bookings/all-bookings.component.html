@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let booking of basicTable.data">
-      <td>{{ booking.customerId }}</td>
+      <td>{{ userMap.get(booking.customerId) || 'Unknown Customer' }}</td>
       <td>{{ booking.serviceId }}</td>
       <td>{{ booking.bookingDate | date: 'MMM d, y' }}</td>
       <td>

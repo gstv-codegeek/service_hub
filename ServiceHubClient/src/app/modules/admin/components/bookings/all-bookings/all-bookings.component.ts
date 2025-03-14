@@ -13,7 +13,6 @@ import {MatButton} from '@angular/material/button';
   imports: [
     NgForOf,
     NgIf,
-    NzButtonComponent,
     NzSpinComponent,
     NzTableComponent,
     NgStyle,
@@ -27,11 +26,14 @@ export class AllBookingsComponent {
   isSpinning = false;
   bookingForm!: FormGroup;
   bookings: any = [];
+  users: any = [];
+  userMap = new Map<number, string>();
 
   constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit() {
     this.getAllBookings();
+    this.getAllUsers();
   }
 
   getAllBookings() {
@@ -40,6 +42,7 @@ export class AllBookingsComponent {
       next: (res) => {
         this.isSpinning = false;
         this.bookings = res;
+        this.createUserMap()
         console.log("All Bookings: ", res);
       },
       error: (err) => {
@@ -48,4 +51,40 @@ export class AllBookingsComponent {
       }
     })
   }
+  createUserMap() {
+    this.users.forEach((user: any) => {
+      this.userMap.set(user.id, user.fullName)
+    })
+  }
+
+  getAllUsers() {
+    this.adminService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = res;
+        this.createUserMap()
+        console.log("All Users: ", res);
+      },
+      error: (err) => {
+        this.message.error("Could not get users");
+      }
+    })
+  }
+  getBookingById(id: number) {
+    this.adminService.getBookingById(id).subscribe({
+
+    });
+  }
+
+  getUserById(id: number) {
+    this.adminService.getUserById(id).subscribe({
+
+    });
+  }
+
+  getServiceById(id: number) {
+    this.adminService.getServiceById(id).subscribe({
+
+    });
+  }
+
 }

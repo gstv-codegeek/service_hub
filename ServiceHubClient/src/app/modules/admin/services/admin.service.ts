@@ -24,6 +24,7 @@ export class AdminService {
     );
   }
 
+
   // =========== USER SERVICES ============= //
   getAllProviders() {
     return this.http.get(BASE_URL + "/auth/providers", {
@@ -36,6 +37,19 @@ export class AdminService {
       headers: this.createAuthorizationHeader()
     })
   }
+
+  getAllUsers() {
+    return this.http.get(BASE_URL + "/admin/users", {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getUserById(id: number) {
+    return this.http.get(BASE_URL + "/admin/user/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
 
   // ===========CATEGORY SERVICES =============== //
   createCategory(categoryDto: any): Observable<any> {
@@ -50,6 +64,11 @@ export class AdminService {
     });
   }
 
+  getCategoryById(id: number): Observable<any> {
+    return this.http.get(BASE_URL + "/admin/category/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
 
   //=========== PROVIDER SERVICES ==============//
   createService(serviceDto: any): Observable<any> {
@@ -64,6 +83,12 @@ export class AdminService {
     });
   }
 
+  getServiceById(id: number): Observable<any> {
+    return this.http.get(BASE_URL + "/admin/service/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   // ============== BOOKING SERVICES =================== //
   bookService(bookingDto: any): Observable<any> {
     return this.http.post(BASE_URL + "/admin/service/book", bookingDto, {
@@ -73,6 +98,12 @@ export class AdminService {
 
   getAllBookings(): Observable<any> {
     return this.http.get(BASE_URL + "/admin/bookings", {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  getBookingById(id: number): Observable<any> {
+    return this.http.get(BASE_URL + "/admin/booking/" + id, {
       headers: this.createAuthorizationHeader()
     });
   }

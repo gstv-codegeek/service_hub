@@ -39,17 +39,17 @@ export class StorageService {
 
   static isAdminLoggedIn(): boolean {
     if (this.getToken() == null) return false
-    return this.getUserRole() == "ROLE_ADMIN";
+    return this.getUserRole() == "Admin";
   }
 
   static isProviderLoggedIn(): boolean {
     if (this.getToken() == null) return false
-    return this.getUserRole() == "ROLE_PROVIDER";
+    return this.getUserRole() == "Provider";
   }
 
   static isCustomerLoggedIn(): boolean {
     if (this.getToken() == null) return false
-    return this.getUserRole() == "ROLE_CUSTOMER";
+    return this.getUserRole() == "Customer";
   }
 
   static logout(): void {

@@ -13,8 +13,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let solution of basicTable.data">
-      <td>{{ solution.categoryId }}</td>
-      <td>{{ solution.providerId }}</td>
+      <td>{{ categoryMap.get(solution.categoryId) || 'Unknown Category'}}</td>
+      <td>{{ userMap.get(solution.providerId) || 'Unknown Service Provider' }}</td>
       <td>{{ solution.serviceName }}</td>
       <td>{{ solution.price }}</td>
       <td>{{ solution.description }}</td>

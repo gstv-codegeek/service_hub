@@ -10,7 +10,8 @@
           </div>
         </div>
 
-        <mat-button-toggle-group name="signupForm" aria-label="Signup Form" style="margin: 15px; justify-content: center" [(ngModel)]="userType">
+        <mat-button-toggle-group name="signupForm" aria-label="Signup Form"
+                                 style="margin: 15px; justify-content: center" [(ngModel)]="userType" (ngModelChange)="onUserTypeChange($event)">
           <mat-button-toggle value="customer" checked>Customer</mat-button-toggle>
           <mat-button-toggle value="provider">Service Provider</mat-button-toggle>
         </mat-button-toggle-group>
@@ -29,7 +30,7 @@
             </nz-form-control>
           </nz-form-item>
 
-          <nz-form-item>
+          <nz-form-item *ngIf="userType === 'customer'">
             <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
               <input nz-input placeholder="Full Name" id="fullName" formControlName="fullName">
               <ng-template #userErrorTpl let-control>
@@ -76,7 +77,8 @@
                   Password is Required
                 </ng-container>
                 <ng-container *ngIf="control.hasError('pattern')">
-                  Password should contain at least 8 characters, 1 Lowercase, 1 Uppercase, 1 Number and 1 Special character
+                  Password should contain at least 8 characters, 1 Lowercase, 1 Uppercase, 1 Number and 1 Special
+                  character
                 </ng-container>
               </ng-template>
             </nz-form-control>
@@ -84,7 +86,8 @@
 
           <nz-form-item>
             <nz-form-control nzHasFeedback [nzErrorTip]="errorTpl">
-              <input nz-input placeholder="Confirm Password" type="password" id="confirmPassword" formControlName="confirmPassword">
+              <input nz-input placeholder="Confirm Password" type="password" id="confirmPassword"
+                     formControlName="confirmPassword">
               <ng-template #errorTpl let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Please confirm your password!
@@ -96,7 +99,9 @@
             </nz-form-control>
           </nz-form-item>
 
-          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="'false'" (click)="register()">Register</button>
+          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="'false'"
+                  (click)="register()">Register
+          </button>
           Or <a routerLink="/login"> login now! </a>
 
         </form>
