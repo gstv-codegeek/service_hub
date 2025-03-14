@@ -4,7 +4,7 @@ import com.gichungasoftwares.ServiceHub.dto.UserDto;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserManagerService {
     List<UserDto> getAllUsers();
     UserDto getUserById(Long id);
 }

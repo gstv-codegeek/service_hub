@@ -28,4 +28,28 @@ public class BookingController {
     public ResponseEntity<?> getAllBookings() {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
+
+    @GetMapping("/booking/{id}")
+    public ResponseEntity<?> getBookingById(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.getBookingById(id));
+    }
+
+    @GetMapping("/booking/{id}/{status}")
+    public ResponseEntity<?> changeBookingStatus(@PathVariable Long id, @PathVariable String status) {
+        boolean success = bookingService.changeBookingStatus(id, status);
+        if (success) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+    }
+
+    @GetMapping("/booking/delete/{id}")
+    public ResponseEntity<?> deleteBooking(@PathVariable Long id) {
+        boolean success = bookingService.deleteBooking(id);
+        if (success) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    }
+
 }

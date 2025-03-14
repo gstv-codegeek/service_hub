@@ -71,4 +71,27 @@ public class ServiceManagerImpl implements ServiceManager {
     public List<ProviderServiceDto> getAllServices() {
         return serviceRepository.findAll().stream().map(ProviderService::getServiceDto).collect(Collectors.toList());
     }
+
+    @Override
+    public ProviderServiceDto getServiceById(Long id) {
+        ProviderService providerService = serviceRepository.findById(id).orElseThrow(() -> new RuntimeException("Service not found with id " + id));
+        ProviderServiceDto providerServiceDto = new ProviderServiceDto();
+        providerServiceDto.setId(providerService.getId());
+        providerServiceDto.setServiceName(providerService.getServiceName());
+        providerServiceDto.setProviderId(providerService.getProvider().getId());
+        providerServiceDto.setPrice(providerService.getPrice());
+        providerServiceDto.setDescription(providerService.getDescription());
+        providerServiceDto.setCategoryId(providerService.getCategory().getId());
+        return providerServiceDto;
+    }
+
+    @Override
+    public boolean updateService(Long id, ProviderServiceDto providerServiceDto) {
+        return false;
+    }
+
+    @Override
+    public void deleteService(Long id) {
+
+    }
 }

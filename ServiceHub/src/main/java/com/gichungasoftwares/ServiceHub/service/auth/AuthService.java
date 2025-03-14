@@ -14,8 +14,7 @@ public interface AuthService {
 
     boolean existsByEmail(String email);
     Optional<User> getUserWithEmail(String email);
-    UserDto createCustomer(SignupRequest signupRequest);
-    UserDto createProvider(SignupRequest signupRequest);
+    UserDto createUser(SignupRequest signupRequest);
     List<UserDto> getAllProviders();
     List<UserDto> getAllCustomers();
 }

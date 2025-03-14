@@ -27,12 +27,16 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-
     @GetMapping("/categories")
     public ResponseEntity<?> getAllCategories() {
         logger.info("Getting all categories");
         return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+        logger.info("Getting category with id: {}", id);
+        return ResponseEntity.ok(categoryService.getCategoryById(id));
+    }
 
 }

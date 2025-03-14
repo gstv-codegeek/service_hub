@@ -44,14 +44,14 @@ public class AuthServiceImpl implements AuthService{
     public void createAdmin() {
         logger.info("Running createAdmin() method");
         try {
-            User existingAdmin = userRepository.findByUserRole(UserRole.ROLE_ADMIN);
+            User existingAdmin = userRepository.findByUserRole(UserRole.Admin);
             if (existingAdmin == null) {
                 Admin admin = new Admin();
                 admin.setFullName("SYSTEM ADMIN");
                 admin.setUsername("admin");
                 admin.setEmail("admin@servicehub.com");
                 admin.setPhoneNumber("0723456789");
-                admin.setUserRole(UserRole.ROLE_ADMIN);
+                admin.setUserRole(UserRole.Admin);
 
                 logger.info("Encoding default admin password");
                 admin.setPassword(passwordEncoder.encode("sysadmin"));
@@ -68,63 +68,48 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
-    public UserDto createCustomer(SignupRequest signupRequest) {
-
-        if (userRepository.findByEmail(signupRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with email already exists");
-        }
-        try {
-                Customer newCustomer = new Customer();
-                newCustomer.setFullName(signupRequest.getFullName());
-                newCustomer.setUsername(signupRequest.getUsername());
-                newCustomer.setEmail(signupRequest.getEmail());
-                newCustomer.setPhoneNumber(signupRequest.getPhoneNumber());
-                newCustomer.setIdNumber(signupRequest.getIdNumber());
-                newCustomer.setUserRole(UserRole.ROLE_CUSTOMER);
-                newCustomer.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
-
-                Customer createdCustomer = userRepository.save(newCustomer);
-                logger.info("Customer record created successfully");
-
-                return userMapper.toUserDto(createdCustomer);
-        } catch (DataAccessException e) {
-            logger.warn("Error while creating customer record");
-            throw new RuntimeException("Could not create customer");
-        }
-    }
-
-    @Override
-    public UserDto createProvider(SignupRequest signupRequest) {
-
+    public UserDto createUser(SignupRequest signupRequest) {
         if (userRepository.findByEmail(signupRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
         try {
-            Provider newProvider = new Provider();
-            newProvider.setFullName(signupRequest.getFullName());
-            newProvider.setUsername(signupRequest.getUsername());
-            newProvider.setEmail(signupRequest.getEmail());
-            newProvider.setPhoneNumber(signupRequest.getPhoneNumber());
-            newProvider.setIdNumber(signupRequest.getIdNumber());
-            newProvider.setUserRole(UserRole.ROLE_SERVICE_PROVIDER);
-            newProvider.setBusinessName(signupRequest.getBusinessName());
-            newProvider.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
+            User user;
+            if ((signupRequest.getBusinessName() != null) && !signupRequest.getBusinessName().isEmpty()) {
+                // Register as provider
+                Provider newProvider = new Provider();
+                newProvider.setBusinessName(signupRequest.getBusinessName());
+                newProvider.setUserRole(UserRole.Provider);
+                user = newProvider;
+            } else {
+                // Register as Customer
+                Customer newCustomer = new Customer();
+                newCustomer.setUserRole(UserRole.Customer);
+                newCustomer.setFullName(signupRequest.getFullName());
+                user = newCustomer;
+            }
+            // common user fields
+            user.setUsername(signupRequest.getUsername());
+            user.setEmail(signupRequest.getEmail());
+            user.setPhoneNumber(signupRequest.getPhoneNumber());
+            user.setIdNumber(signupRequest.getIdNumber());
+            user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
 
-            Provider createdProvider = userRepository.save(newProvider);
-            logger.info("Service Provider record created successfully");
-
-            return userMapper.toUserDto(createdProvider);
+            User createdUser = userRepository.save(user);
+            logger.info("{} record created successfully", user.getUserRole());
+            return userMapper.toUserDto(createdUser);
 
         } catch (DataAccessException e) {
-            logger.warn("Error while creating service provider record");
-            throw new RuntimeException("Could not create provider");
+            logger.warn("Error while creating user record");
+            throw new RuntimeException("User registration failed");
+        } catch (Exception e) {
+            throw new RuntimeException("Something went wrong " + e);
         }
-
     }
+
 
     @Override
     public List<UserDto> getAllProviders() {
-        return userRepository.findAllByUserRole(UserRole.ROLE_SERVICE_PROVIDER)
+        return userRepository.findAllByUserRole(UserRole.Provider)
                 .stream()
                 .map(User::toUserDto)
                 .collect(Collectors.toList());
@@ -132,7 +117,7 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public List<UserDto> getAllCustomers() {
-        return userRepository.findAllByUserRole(UserRole.ROLE_CUSTOMER)
+        return userRepository.findAllByUserRole(UserRole.Customer)
                 .stream()
                 .map(User::toUserDto)
                 .collect(Collectors.toList());

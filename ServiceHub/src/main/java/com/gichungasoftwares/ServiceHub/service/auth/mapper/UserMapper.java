@@ -14,6 +14,8 @@ public class UserMapper {
         userDto.setUsername(createdUser.getUsername());
         userDto.setEmail(createdUser.getEmail());
         userDto.setPhoneNumber(createdUser.getPhoneNumber());
+        userDto.setIdNumber(createdUser.getIdNumber());
+        userDto.setUserRole(createdUser.getUserRole());
         if (createdUser instanceof Provider provider) {
             userDto.setBusinessName(provider.getBusinessName());
         } else {

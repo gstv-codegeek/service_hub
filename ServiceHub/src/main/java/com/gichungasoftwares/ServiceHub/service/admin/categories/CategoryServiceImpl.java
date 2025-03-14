@@ -44,17 +44,22 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void deleteCategory(Long id) {
-
-    }
-
-    @Override
     public CategoryDto getCategoryById(Long id) {
-        return null;
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id : " + id));
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setCategoryName(category.getCategoryName());
+        categoryDto.setServices(category.getCategoryDto().getServices());
+        return categoryDto;
     }
 
     @Override
     public boolean updateCategory(Long id, CategoryDto categoryDto) {
         return false;
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+
     }
 }

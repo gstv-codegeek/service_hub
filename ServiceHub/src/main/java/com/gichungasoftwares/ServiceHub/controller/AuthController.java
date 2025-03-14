@@ -28,24 +28,14 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final JWTUtil jwtUtil;
 
-    @PostMapping("/customer/signup")
-    public ResponseEntity<?> createCustomer(@RequestBody SignupRequest signupRequest) {
+    @PostMapping("/signup")
+    public ResponseEntity<?> createUser(@RequestBody SignupRequest signupRequest) {
         if (authService.existsByEmail(signupRequest.getEmail())) {
             return new ResponseEntity<>("User exists with this email", HttpStatus.NOT_ACCEPTABLE);
         }
-        UserDto createdCustomerDto = authService.createCustomer(signupRequest);
-        if (createdCustomerDto == null) return new ResponseEntity<>("Customer not created", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(createdCustomerDto, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/provider/signup")
-    public ResponseEntity<?> createProvider(@RequestBody SignupRequest signupRequest) {
-        if (authService.existsByEmail(signupRequest.getEmail())) {
-            return new ResponseEntity<>("User exists with this email", HttpStatus.NOT_ACCEPTABLE);
-        }
-        UserDto createdProviderDto = authService.createProvider(signupRequest);
-        if (createdProviderDto == null) return new ResponseEntity<>("Service Provider not created", HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(createdProviderDto, HttpStatus.CREATED);
+        UserDto createdUserDto = authService.createUser(signupRequest);
+        if (createdUserDto == null) return new ResponseEntity<>("User not created", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(createdUserDto, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

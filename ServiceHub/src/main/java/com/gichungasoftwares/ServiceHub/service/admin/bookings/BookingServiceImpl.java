@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,4 +66,43 @@ public class BookingServiceImpl implements BookingService {
         logger.info("Getting all bookings");
         return bookingRepository.findAll().stream().map(Booking::toBookingDto).collect(Collectors.toList());
     }
+
+    @Override
+    public BookingDto getBookingById(Long id) {
+        Booking booking = bookingRepository.findById(id).orElseThrow(()  -> new RuntimeException("Booking not found with id " + id));
+        BookingDto bookingDto = new BookingDto();
+        bookingDto.setId(booking.getId());
+        bookingDto.setServiceId(booking.getProviderService().getId());
+        bookingDto.setCustomerId(booking.getCustomer().getId());
+        bookingDto.setBookingDate(booking.getBookingDate());
+        bookingDto.setBookingStatus(booking.getBookingStatus());
+        return bookingDto;
+    }
+
+    @Override
+    public boolean changeBookingStatus(Long bookingId, String status) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(bookingId);
+        if (optionalBooking.isPresent()) {
+            Booking existingBooking = optionalBooking.get();
+            if (Objects.equals(status, "Approve")) {
+                existingBooking.setBookingStatus(BookingStatus.Approved);
+            } else {
+                existingBooking.setBookingStatus(BookingStatus.Rejected);
+            }
+            bookingRepository.save(existingBooking);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteBooking(Long id) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(id);
+        if (optionalBooking.isPresent()) {
+            bookingRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }
