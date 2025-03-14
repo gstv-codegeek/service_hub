@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,9 +42,9 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new RuntimeException("Service does not exist"));
 
         // Prevent double booking
-        Optional<Booking> existingBooking = bookingRepository.findByCustomerAndProviderServiceAndBookingStatus(customer, service, BookingStatus.Pending);
+        Optional<Booking> existingBooking = bookingRepository.findByCustomerAndProviderServiceAndBookingStatusIn(customer, service, Arrays.asList(BookingStatus.Pending, BookingStatus.Rejected));
         if (existingBooking.isPresent()) {
-            logger.error("Booking by customer: {} for service {} exists. ", existingBooking.get().getCustomer(), existingBooking.get().getProviderService());
+            logger.error("Booking by customer with id: {} for service with id {} exists. ", customer.getId(), service.getId());
             return false;
         }
         // if customer of service booking is non-existent
@@ -77,7 +78,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto getBookingById(Long id) {
-        Booking booking = bookingRepository.findById(id).orElseThrow(()  -> new RuntimeException("Booking not found with id " + id));
+        Booking booking = bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("Booking not found with id " + id));
         BookingDto bookingDto = new BookingDto();
         bookingDto.setId(booking.getId());
         bookingDto.setServiceId(booking.getProviderService().getId());
