@@ -108,5 +108,16 @@ export class AdminService {
     });
   }
 
+  changeBookingStatus(id: number, status: string): Observable<any> {
+    return this.http.get(BASE_URL + "/admin/booking/"+ id +"/" + status, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  deleteBooking(id: number): Observable<any> {
+    return this.http.delete(BASE_URL + "/admin/booking/delete/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
 
 }

@@ -43,7 +43,7 @@ public class BookingController {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
     }
 
-    @GetMapping("/booking/delete/{id}")
+    @DeleteMapping("/booking/delete/{id}")
     public ResponseEntity<?> deleteBooking(@PathVariable Long id) {
         boolean success = bookingService.deleteBooking(id);
         if (success) {

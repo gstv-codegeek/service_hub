@@ -23,8 +23,9 @@
       </td>
       <td>
         <span *ngIf="booking.bookingStatus === 'Pending'">
-          <button style="margin-left: 10px;" mat-flat-button>Approve</button>
-          <button style="margin-left: 10px;background: #ff4081" mat-flat-button>Reject</button>
+          <button style="margin-left: 10px;" mat-flat-button (click)="changeStatus(booking.id, 'Approve')">Approve</button>
+          <button style="margin-left: 10px;background: #ffc107" mat-flat-button (click)="changeStatus(booking.id, 'Reject')">Reject</button>
+          <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
         </span>
       </td>
     </tr>

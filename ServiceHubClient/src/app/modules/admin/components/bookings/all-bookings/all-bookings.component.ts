@@ -87,4 +87,32 @@ export class AllBookingsComponent {
     });
   }
 
+  changeStatus(id:number, status:string) {
+    this.isSpinning = true;
+    this.adminService.changeBookingStatus(id, status).subscribe({
+      next: () => {
+        this.isSpinning = false;
+        this.message.success("Booking updated successfully!", {nzDuration: 5000});
+      },
+      error: () => {
+        this.isSpinning = false;
+        this.message.error("Could not update booking status!", {nzDuration: 5000});
+      }
+    });
+  }
+
+  deleteBooking(id:number) {
+    this.isSpinning = true;
+    this.adminService.deleteBooking(id).subscribe({
+      next: () => {
+        this.isSpinning = false;
+        this.message.success("Booking was deleted successfully", {nzDuration: 5000});
+      },
+      error: () => {
+        this.isSpinning = false;
+        this.message.error("Could not delete booking!", {nzDuration: 5000});
+      }
+    });
+  }
+
 }
