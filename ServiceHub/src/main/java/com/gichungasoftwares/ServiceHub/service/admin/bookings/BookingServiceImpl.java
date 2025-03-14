@@ -40,8 +40,16 @@ public class BookingServiceImpl implements BookingService {
         ProviderService service = serviceRepository.findById(bookingDto.getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service does not exist"));
 
+        // Prevent double booking
+        Optional<Booking> existingBooking = bookingRepository.findByCustomerAndProviderService(customer, service);
+        if (existingBooking.isPresent()) {
+            logger.error("Booking by customer: {} for service {} exists. ", existingBooking.get().getCustomer(), existingBooking.get().getProviderService());
+            return false;
+        }
+        // if customer of service booking is non-existent
         if (customer == null || service == null) {
             logger.error("Provided Customer or Service does not exist");
+            return false;
         }
         try {
             Booking booking = new Booking();
