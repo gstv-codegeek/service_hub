@@ -27,6 +27,8 @@ public class Booking {
 
     private LocalDateTime bookingDate;
 
+    private LocalDateTime serviceDate;
+
     private BookingStatus bookingStatus;
 
     public BookingDto toBookingDto() {
@@ -36,6 +38,7 @@ public class Booking {
         bookingDto.setCustomerId(customer.getId());
         bookingDto.setBookingStatus(bookingStatus);
         bookingDto.setBookingDate(bookingDate);
+        bookingDto.setServiceDate(bookingDate);
         return bookingDto;
     }
 }

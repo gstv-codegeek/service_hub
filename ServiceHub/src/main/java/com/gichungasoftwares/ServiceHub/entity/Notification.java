@@ -13,6 +13,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String messageCategory;
     private String message;
     private boolean isRead;
 
