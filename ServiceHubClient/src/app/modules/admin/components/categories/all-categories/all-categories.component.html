@@ -1,1 +1,18 @@
-<p>all-categories works!</p>
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
+  <h3>ALL SERVICES</h3>
+  <nz-table [nzBordered]="true" #basicTable [nzData]="categories" [nzPageSize]="20" [nzShowPagination]="'false'">
+    <thead>
+    <tr>
+      <th style="font-weight: bolder; color: #003973;">#</th>
+      <th style="font-weight: bolder; color: #003973;">Category Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of basicTable.data">
+      <td>{{ category.id}}</td>
+      <td>{{ category.categoryName}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-spin>
+

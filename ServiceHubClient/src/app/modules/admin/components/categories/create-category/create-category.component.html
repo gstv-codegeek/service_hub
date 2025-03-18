@@ -2,21 +2,13 @@
   <h3>Create Category</h3>
   <form nz-form [formGroup]="categoryForm" class="category-form">
     <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your username!">
-        <nz-input-group nzPrefixIcon="user">
+      <nz-form-control nzErrorTip="Please input Category Name!">
+        <nz-input-group>
           <input type="text" nz-input formControlName="categoryName" placeholder="Category" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-        <nz-input-group nzPrefixIcon="lock">
-          <input type="password" nz-input formControlName="password" placeholder="Password" />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <button nz-button class="category-form-button category-form-margin" [nzType]="'primary'" (click)="createCategory()">Create</button>
-
+    <button mat-flat-button class="category-form-button category-form-margin" style="margin-top: 10px;" (click)="createCategory()">Create Category</button>
   </form>
 </nz-spin>
 

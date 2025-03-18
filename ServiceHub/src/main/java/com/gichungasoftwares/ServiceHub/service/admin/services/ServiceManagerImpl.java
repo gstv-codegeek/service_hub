@@ -4,15 +4,20 @@ import com.gichungasoftwares.ServiceHub.dto.ProviderServiceDto;
 import com.gichungasoftwares.ServiceHub.entity.Category;
 import com.gichungasoftwares.ServiceHub.entity.ProviderService;
 import com.gichungasoftwares.ServiceHub.entity.user.Provider;
+import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.repository.CategoryRepository;
 import com.gichungasoftwares.ServiceHub.repository.ProviderRepository;
 import com.gichungasoftwares.ServiceHub.repository.ServiceRepository;
+import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
+import com.gichungasoftwares.ServiceHub.service.admin.notification.NotificationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,11 +29,13 @@ public class ServiceManagerImpl implements ServiceManager {
     private final ServiceRepository serviceRepository;
     private final CategoryRepository categoryRepository;
     private final ProviderRepository providerRepository;
+    private final NotificationService notificationService;
+    private final AuditControlService auditControlService;
     private static final Logger logger = LoggerFactory.getLogger(ServiceManagerImpl.class);
 
     @Override
     @Transactional
-    public boolean createService(ProviderServiceDto providerServiceDto) {
+    public boolean createService(ProviderServiceDto providerServiceDto, Authentication connectedUser) {
         logger.info("bl-creating service {}", providerServiceDto);
 
         Category category = categoryRepository.findById(providerServiceDto.getCategoryId())
@@ -55,6 +62,18 @@ public class ServiceManagerImpl implements ServiceManager {
             providerService.setProvider(provider);
             providerService.setCategory(category);
             ProviderService createdProviderService = serviceRepository.save(providerService);
+
+            //Send Notification
+            String message = String.format(
+                    "Hello %s,\n\nYou have successfully service %s on %s!",
+                    connectedUser.getName(),
+                    createdProviderService.getServiceName(),
+                    ZonedDateTime.now()
+            );
+            notificationService.saveNotification((User) connectedUser.getPrincipal(), "Service Creation", message, false);
+
+            //Log Action
+            auditControlService.logAction("Service Created", connectedUser.getName(), "Service ID: " + createdProviderService.getId());
 
             logger.info("Service '{}' successfully created for provider {}", createdProviderService.getServiceName(), createdProviderService.getProvider());
             return true;
@@ -86,12 +105,16 @@ public class ServiceManagerImpl implements ServiceManager {
     }
 
     @Override
-    public boolean updateService(Long id, ProviderServiceDto providerServiceDto) {
+    public boolean updateService(Long id, ProviderServiceDto providerServiceDto, Authentication connectedUser) {
+        //Log Action
+//        auditControlService.logAction("Service Updated", connectedUser.getName(), "Service ID: " + updatedService.getId());
+
         return false;
     }
 
     @Override
-    public void deleteService(Long id) {
-
+    public void deleteService(Long id, Authentication connectedUser) {
+        // Log Action
+//        auditControlService.logAction("Service Deleted", connectedUser.getName(), "Service ID: " + updatedService.getId());
     }
 }

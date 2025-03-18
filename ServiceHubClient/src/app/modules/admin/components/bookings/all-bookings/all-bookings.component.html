@@ -1,20 +1,22 @@
 <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
   <h3>CUSTOMER BOOKINGS</h3>
-  <nz-table #basicTable [nzData]="bookings" [nzPageSize]="20" [nzShowPagination]="'false'">
+  <nz-table #sortTable [nzData]="bookings" nzTableLayout="auto" [nzPageSize]="10" [nzShowPagination]="'true'">
     <thead>
     <tr>
-      <th style="font-weight: bolder; color: #003973;">Customer</th>
-      <th style="font-weight: bolder; color: #003973;">Service</th>
-      <th style="font-weight: bolder; color: #003973;">Booking Date</th>
-      <th style="font-weight: bolder; color: #003973;">Approval Status</th>
+      <th [nzSortFn]="sortByCustomer" style="font-weight: bolder; color: #003973;">Customer</th>
+      <th [nzSortFn]="sortByDate" style="font-weight: bolder; color: #003973;">Booking Date</th>
+      <th [nzSortFn]="sortByService" style="font-weight: bolder; color: #003973;">Service</th>
+      <th [nzSortFn]="sortByDate" style="font-weight: bolder; color: #003973;">Service Date</th>
+      <th [nzSortFn]="sortByStatus" style="font-weight: bolder; color: #003973;">Approval Status</th>
       <th style="font-weight: bolder; color: #003973;">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let booking of basicTable.data">
+    <tr *ngFor="let booking of sortTable.data">
       <td>{{ userMap.get(booking.customerId) || 'Unknown Customer' }}</td>
-      <td>{{ serviceMap.get(booking.serviceId) || 'Unknown Service' }}</td>
       <td>{{ booking.bookingDate | date: 'MMM d, y' }}</td>
+      <td>{{ serviceMap.get(booking.serviceId) || 'Unknown Service' }}</td>
+      <td>{{ booking.serviceDate | date: 'MMM d, y' }}</td>
       <td>
         <strong>
           <button
@@ -27,18 +29,23 @@
         <span *ngIf="booking.bookingStatus === 'Pending'">
           <button style="margin-left: 10px;" mat-flat-button
                   (click)="changeStatus(booking.id, 'Approve')">Approve</button>
+          <nz-divider nzType="vertical"></nz-divider>
           <button style="margin-left: 10px;background: #ffc107" mat-flat-button
                   (click)="changeStatus(booking.id, 'Reject')">Reject</button>
+          <nz-divider nzType="vertical"></nz-divider>
           <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
         </span>
         <span *ngIf="booking.bookingStatus === 'Rejected'">
           <button style="margin-left: 10px;" mat-flat-button
                   (click)="changeStatus(booking.id, 'Approve')">Approve</button>
+          <nz-divider nzType="vertical"></nz-divider>
           <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
         </span>
       </td>
     </tr>
     </tbody>
   </nz-table>
+
+
 </nz-spin>
 

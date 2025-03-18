@@ -9,6 +9,7 @@
         </nz-select>
       </nz-form-control>
     </nz-form-item>
+
     <nz-form-item>
       <nz-form-label nzFor="type">Service</nz-form-label>
       <nz-form-control nzErrorTip="This Input is Required">
@@ -17,6 +18,14 @@
         </nz-select>
       </nz-form-control>
     </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="serviceDate">Service Date</nz-form-label>
+      <nz-form-control nzErrorTip="This Input is Required">
+        <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="serviceDate" style="width: 100%"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
     <button mat-flat-button class="category-form-button category-form-margin" style="margin-top: 10px" (click)="bookService()">Book service</button>
 
   </form>

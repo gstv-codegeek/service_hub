@@ -6,7 +6,7 @@ import com.gichungasoftwares.ServiceHub.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Data
 @Entity
@@ -25,9 +25,9 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    private LocalDateTime bookingDate;
+    private ZonedDateTime bookingDate;
 
-    private LocalDateTime serviceDate;
+    private ZonedDateTime serviceDate;
 
     private BookingStatus bookingStatus;
 
@@ -38,7 +38,7 @@ public class Booking {
         bookingDto.setCustomerId(customer.getId());
         bookingDto.setBookingStatus(bookingStatus);
         bookingDto.setBookingDate(bookingDate);
-        bookingDto.setServiceDate(bookingDate);
+        bookingDto.setServiceDate(serviceDate);
         return bookingDto;
     }
 }

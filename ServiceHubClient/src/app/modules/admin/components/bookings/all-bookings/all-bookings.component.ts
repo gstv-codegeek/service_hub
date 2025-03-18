@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder, FormsModule} from '@angular/forms';
 import {AdminService} from '../../../services/admin.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
-import {NzButtonComponent} from 'ng-zorro-antd/button';
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
-import {NzTableComponent} from 'ng-zorro-antd/table';
+import {NzFilterTriggerComponent, NzTableComponent, NzTableSortFn, NzThAddOnComponent} from 'ng-zorro-antd/table';
 import {MatButton} from '@angular/material/button';
+import {NzIconDirective} from 'ng-zorro-antd/icon';
+import {NzDropdownMenuComponent} from 'ng-zorro-antd/dropdown';
+import {NzInputDirective} from 'ng-zorro-antd/input';
+import {MatTable} from '@angular/material/table';
+import {NzDividerComponent} from 'ng-zorro-antd/divider';
+
 
 @Component({
   selector: 'app-all-bookings',
@@ -17,19 +22,33 @@ import {MatButton} from '@angular/material/button';
     NzTableComponent,
     NgStyle,
     DatePipe,
-    MatButton
+    MatButton,
+    NzThAddOnComponent,
+    NzFilterTriggerComponent,
+    NzIconDirective,
+    NzDropdownMenuComponent,
+    FormsModule,
+    NzInputDirective,
+    MatTable,
+    NzDividerComponent
   ],
   templateUrl: './all-bookings.component.html',
   styleUrl: './all-bookings.component.scss'
 })
 export class AllBookingsComponent {
   isSpinning = false;
-  bookingForm!: FormGroup;
   bookings: any = [];
   users: any = [];
   userMap = new Map<number, string>();
   services: any = [];
   serviceMap = new Map<number, string>();
+  sortByCustomer = (a: any, b: any) => (this.userMap.get(a.customerId) || '').localeCompare(this.userMap.get(b.customerId) || '');
+
+  sortByDate = (a: any, b: any) => new Date(a.bookingDate).getTime() - new Date(b.bookingDate).getTime();
+
+  sortByService = (a: any, b: any) => (this.serviceMap.get(a.serviceId) || '').localeCompare(this.serviceMap.get(b.serviceId) || '');
+
+  sortByStatus = (a: any, b: any) => a.bookingStatus.localeCompare(b.bookingStatus);
 
   constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
 

@@ -5,6 +5,7 @@ import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.requests.LoginRequest;
 import com.gichungasoftwares.ServiceHub.requests.SignupRequest;
 import com.gichungasoftwares.ServiceHub.response.AuthResponse;
+import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
 import com.gichungasoftwares.ServiceHub.service.auth.AuthService;
 import com.gichungasoftwares.ServiceHub.utils.JWTUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JWTUtil jwtUtil;
+    private final AuditControlService auditControlService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> createUser(@RequestBody SignupRequest signupRequest) {
@@ -60,11 +62,14 @@ public class AuthController {
             authResponse.setUserRole(user.getUserRole());
             authResponse.setUserId(user.getId());
 
+            //Log Action
+            auditControlService.logAction("User Login", user.getEmail(), "User ID: [" + user.getId() + "] ");
+
             return ResponseEntity.ok(authResponse);
         } catch (UsernameNotFoundException | BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error Occured");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error Occurred");
         }
 
     }

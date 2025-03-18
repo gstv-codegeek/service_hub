@@ -2,11 +2,16 @@ package com.gichungasoftwares.ServiceHub.service.admin.categories;
 
 import com.gichungasoftwares.ServiceHub.dto.CategoryDto;
 import com.gichungasoftwares.ServiceHub.entity.Category;
+import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.repository.CategoryRepository;
+import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
+import com.gichungasoftwares.ServiceHub.service.admin.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,9 +21,10 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
+    private final AuditControlService auditControlService;
 
     @Override
-    public boolean postCategory(CategoryDto categoryDto) {
+    public boolean postCategory(CategoryDto categoryDto, Authentication connectedUser) {
         Optional<Category> existingCategory = categoryRepository.findByCategoryName(categoryDto.getCategoryName());
         if (existingCategory.isPresent()) {
             System.out.println("This category exists");
@@ -27,7 +33,9 @@ public class CategoryServiceImpl implements CategoryService{
         try {
             Category category = new Category();
             category.setCategoryName(categoryDto.getCategoryName());
-            categoryRepository.save(category);
+            Category createdCategory = categoryRepository.save(category);
+            //Log Action
+            auditControlService.logAction("Category Created", connectedUser.getName(), "Category: " + createdCategory.getCategoryName());
             return true;
         } catch (DataAccessException e) {
             System.err.println("Error saving category: " + e.getMessage());
@@ -54,12 +62,16 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public boolean updateCategory(Long id, CategoryDto categoryDto) {
+    public boolean updateCategory(Long id, CategoryDto categoryDto, Authentication connectedUser) {
+        //Log Action
+//        auditControlService.logAction("Category Updated", connectedUser.getName(), "Category: " + updatedCategory.getCategoryName());
         return false;
     }
 
     @Override
-    public void deleteCategory(Long id) {
+    public void deleteCategory(Long id, Authentication connectedUser) {
+        //Log Action
+//        auditControlService.logAction("Category Deleted", connectedUser.getName(), "Category: " + deletedCategory.getCategoryName());
 
     }
 }

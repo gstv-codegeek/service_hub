@@ -23,6 +23,9 @@ public class NotificationServiceImpl implements NotificationService{
             notification.setMessageCategory(messageCategory);
             notification.setMessage(message);
             notification.setRead(false);
+            Notification createdNotification = notificationRepository.save(notification);
+
+            logger.info("Notification created successfully. Notification id: {}", createdNotification.getId());
         } catch (DataAccessException e) {
             logger.error("Database error saving notification :", e);
         } catch (Exception e) {

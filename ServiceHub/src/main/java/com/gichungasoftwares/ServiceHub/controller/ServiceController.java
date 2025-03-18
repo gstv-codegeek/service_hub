@@ -5,6 +5,7 @@ import com.gichungasoftwares.ServiceHub.service.admin.services.ServiceManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +16,8 @@ public class ServiceController {
     private final ServiceManager serviceManager;
 
     @PostMapping("/service")
-    public ResponseEntity<?> createService(@RequestBody ProviderServiceDto providerServiceDto) {
-        boolean success = serviceManager.createService(providerServiceDto);
+    public ResponseEntity<?> createService(@RequestBody ProviderServiceDto providerServiceDto, Authentication connectedUser) {
+        boolean success = serviceManager.createService(providerServiceDto, connectedUser);
         if (success) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }

@@ -1,5 +1,6 @@
 package com.gichungasoftwares.ServiceHub.entity;
 
+import com.gichungasoftwares.ServiceHub.entity.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,13 +14,13 @@ public class AuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String action;
-    private String entity;
-    private Long entityId;
-
     private String performedBy;
+    private String details;
     private LocalDateTime timestamp;
 
-    private String details;
+    @PrePersist
+    public void prePersist() {
+        this.timestamp = LocalDateTime.now();
+    }
 }

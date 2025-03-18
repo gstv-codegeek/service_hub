@@ -35,7 +35,9 @@
           (nzOpenChange)="openHandler('sub4')">
         <ul>
           <li nz-menu-item><a routerLink="/admin/services" routerLinkActive="active">All Service</a></li>
-          <li nz-menu-item><a routerLink="/admin/service/book" routerLinkActive="active">Create Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/service/create" routerLinkActive="active">Create Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/categories" routerLinkActive="active">All Categories</a></li>
+          <li nz-menu-item><a routerLink="/admin/category/create" routerLinkActive="active">Create Category</a></li>
         </ul>
       </li>
     </ul>
@@ -45,10 +47,6 @@
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu" *ngIf="isAdminLoggedIn">
-        <li nz-menu-item nzSelected><a routerLink="/admin/dashboard" routerLinkActive="active">Admin
-          Dashboard</a></li>
-        <li nz-menu-item><a routerLink="/admin/search" routerLinkActive="active">Search
-          Services</a></li>
         <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>

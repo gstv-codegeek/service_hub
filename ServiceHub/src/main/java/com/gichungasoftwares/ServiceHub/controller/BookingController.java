@@ -5,6 +5,7 @@ import com.gichungasoftwares.ServiceHub.service.admin.bookings.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +16,8 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping("/service/book")
-    public ResponseEntity<?> bookAService(@RequestBody BookingDto bookingDto) {
-        boolean success = bookingService.bookAService(bookingDto);
+    public ResponseEntity<?> bookAService(@RequestBody BookingDto bookingDto, Authentication connectedUser) {
+        boolean success = bookingService.bookAService(bookingDto, connectedUser);
         if (success) {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }
@@ -35,8 +36,8 @@ public class BookingController {
     }
 
     @GetMapping("/booking/{id}/{status}")
-    public ResponseEntity<?> changeBookingStatus(@PathVariable Long id, @PathVariable String status) {
-        boolean success = bookingService.changeBookingStatus(id, status);
+    public ResponseEntity<?> changeBookingStatus(@PathVariable Long id, @PathVariable String status, Authentication connectedUser) {
+        boolean success = bookingService.changeBookingStatus(id, status, connectedUser);
         if (success) {
             return ResponseEntity.status(HttpStatus.OK).build();
         }
@@ -44,8 +45,8 @@ public class BookingController {
     }
 
     @DeleteMapping("/booking/delete/{id}")
-    public ResponseEntity<?> deleteBooking(@PathVariable Long id) {
-        boolean success = bookingService.deleteBooking(id);
+    public ResponseEntity<?> deleteBooking(@PathVariable Long id, Authentication connectedUser) {
+        boolean success = bookingService.deleteBooking(id, connectedUser);
         if (success) {
             return ResponseEntity.status(HttpStatus.OK).build();
         }

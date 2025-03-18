@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AdminService} from '../../../services/admin.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-create-category',
@@ -17,7 +18,8 @@ import {NzSpinComponent} from 'ng-zorro-antd/spin';
     NzInputGroupComponent,
     NzInputDirective,
     NzSpinComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButton
   ],
   templateUrl: './create-category.component.html',
   styleUrl: './create-category.component.scss'

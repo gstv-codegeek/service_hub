@@ -1,9 +1,6 @@
 package com.gichungasoftwares.ServiceHub.service.auth;
 
-import com.gichungasoftwares.ServiceHub.dto.ProviderServiceDto;
 import com.gichungasoftwares.ServiceHub.dto.UserDto;
-import com.gichungasoftwares.ServiceHub.entity.user.Customer;
-import com.gichungasoftwares.ServiceHub.entity.user.Provider;
 import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.requests.SignupRequest;
 

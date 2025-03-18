@@ -8,6 +8,7 @@ import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
 import {NgForOf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
+import {NzDatePickerComponent} from 'ng-zorro-antd/date-picker';
 
 @Component({
   selector: 'app-book-service',
@@ -22,7 +23,8 @@ import {MatButton} from '@angular/material/button';
     NzSelectComponent,
     NzOptionComponent,
     NgForOf,
-    MatButton
+    MatButton,
+    NzDatePickerComponent
   ],
   templateUrl: './book-service.component.html',
   styleUrl: './book-service.component.scss'
@@ -41,6 +43,7 @@ export class BookServiceComponent {
     this.bookingForm = this.fb.group({
       customerId: [null, [Validators.required]],
       serviceId: [null, [Validators.required]],
+      serviceDate: [null, [Validators.required]],
     });
 
     this.getAllServices();

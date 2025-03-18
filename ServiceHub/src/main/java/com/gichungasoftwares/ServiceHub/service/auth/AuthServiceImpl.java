@@ -8,6 +8,7 @@ import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.enums.UserRole;
 import com.gichungasoftwares.ServiceHub.repository.UserRepository;
 import com.gichungasoftwares.ServiceHub.requests.SignupRequest;
+import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
 import com.gichungasoftwares.ServiceHub.service.auth.mapper.UserMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService{
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuditControlService auditControlService;
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Override
@@ -96,6 +98,10 @@ public class AuthServiceImpl implements AuthService{
 
             User createdUser = userRepository.save(user);
             logger.info("{} record created successfully", user.getUserRole());
+
+            //Log Action
+            auditControlService.logAction("User Created", "SYSTEM", "User: " + createdUser.getId());
+
             return userMapper.toUserDto(createdUser);
 
         } catch (DataAccessException e) {
