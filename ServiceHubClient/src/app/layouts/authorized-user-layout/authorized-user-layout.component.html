@@ -81,39 +81,14 @@
         <ul>
           <li>
             <ul>
-              <li nz-menu-item><a routerLink="/admin/providers" routerLinkActive="active">All Providers</a></li>
-              <li nz-menu-item><a routerLink="/admin/provider/update" routerLinkActive="active">Edit Profile</a></li>
+              <li nz-menu-item><a routerLink="/provider/services" routerLinkActive="active">My Services</a></li>
+              <li nz-menu-item><a routerLink="/provider/service/create" routerLinkActive="active">Create Service</a></li>
+              <li nz-menu-item><a routerLink="/provider/bookings" routerLinkActive="active">Bookings</a></li>
             </ul>
           </li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Customers" nzIcon="team" [(nzOpen)]="openMap['sub2']"
-          (nzOpenChange)="openHandler('sub2')">
-        <ul>
-          <li nz-menu-item><a routerLink="/admin/clients" routerLinkActive="active">All Customers</a></li>
-          <li nz-menu-item><a routerLink="/admin/client/update" routerLinkActive="active">Edit Customer Profile</a></li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Booking" nzIcon="table" [(nzOpen)]="openMap['sub3']"
-          (nzOpenChange)="openHandler('sub3')">
-        <ul>
-          <li nz-menu-item><a routerLink="/admin/service/book" routerLinkActive="active">Book Service</a></li>
-          <li nz-menu-item><a routerLink="/admin/bookings" routerLinkActive="active">All Bookings</a></li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Services" nzIcon="issues-close" [(nzOpen)]="openMap['sub4']"
-          (nzOpenChange)="openHandler('sub4')">
-        <ul>
-          <li nz-menu-item><a routerLink="/admin/services" routerLinkActive="active">All Service</a></li>
-          <li nz-menu-item><a routerLink="/admin/service/create" routerLinkActive="active">Create Service</a></li>
-        </ul>
-      </li>
-      <li nz-submenu nzTitle="Categories" nzIcon="issues-close" [(nzOpen)]="openMap['sub5']"
-          (nzOpenChange)="openHandler('sub5')">
-        <ul><li nz-menu-item><a routerLink="/admin/categories" routerLinkActive="active">All Categories</a></li>
-          <li nz-menu-item><a routerLink="/admin/category/create" routerLinkActive="active">Create Category</a></li>
-        </ul>
-      </li>
+
     </ul>
   </nz-sider>
 

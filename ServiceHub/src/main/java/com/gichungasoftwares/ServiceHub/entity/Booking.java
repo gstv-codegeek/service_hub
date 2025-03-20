@@ -2,6 +2,7 @@ package com.gichungasoftwares.ServiceHub.entity;
 
 import com.gichungasoftwares.ServiceHub.dto.BookingDto;
 import com.gichungasoftwares.ServiceHub.entity.user.Customer;
+import com.gichungasoftwares.ServiceHub.entity.user.Provider;
 import com.gichungasoftwares.ServiceHub.enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,6 +26,10 @@ public class Booking {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
     private ZonedDateTime bookingDate;
 
     private ZonedDateTime serviceDate;
@@ -36,6 +41,7 @@ public class Booking {
         bookingDto.setId(id);
         bookingDto.setServiceId(providerService.getId());
         bookingDto.setCustomerId(customer.getId());
+        bookingDto.setProviderId(providerService.getProvider().getId());
         bookingDto.setBookingStatus(bookingStatus);
         bookingDto.setBookingDate(bookingDate);
         bookingDto.setServiceDate(serviceDate);

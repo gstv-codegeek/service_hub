@@ -1,41 +1,33 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormsModule} from '@angular/forms';
-import {AdminService} from '../../../services/admin.service';
+import { Component } from '@angular/core';
+import {DatePipe, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {MatButton} from "@angular/material/button";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {NzSpinComponent} from "ng-zorro-antd/spin";
+import {NzTableComponent, NzThAddOnComponent} from "ng-zorro-antd/table";
+import {AdminService} from '../../../admin/services/admin.service';
+import {FormBuilder} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
-import {NzSpinComponent} from 'ng-zorro-antd/spin';
-import {NzFilterTriggerComponent, NzTableComponent, NzTableSortFn, NzThAddOnComponent} from 'ng-zorro-antd/table';
-import {MatButton} from '@angular/material/button';
-import {NzIconDirective} from 'ng-zorro-antd/icon';
-import {NzDropdownMenuComponent} from 'ng-zorro-antd/dropdown';
-import {NzInputDirective} from 'ng-zorro-antd/input';
-import {MatTable} from '@angular/material/table';
-import {NzDividerComponent} from 'ng-zorro-antd/divider';
-
+import {CustomerService} from '../../../customer/services/customer.service';
+import {ProviderService} from '../../services/provider.service';
+import {StorageService} from '../../../../auth/services/storage/storage.service';
 
 @Component({
-  selector: 'app-all-bookings',
+  selector: 'app-bookings',
   imports: [
-    NgForOf,
-    NgIf,
-    NzSpinComponent,
-    NzTableComponent,
-    NgStyle,
     DatePipe,
     MatButton,
+    NgForOf,
+    NgIf,
+    NzDividerComponent,
+    NzSpinComponent,
+    NzTableComponent,
     NzThAddOnComponent,
-    NzFilterTriggerComponent,
-    NzIconDirective,
-    NzDropdownMenuComponent,
-    FormsModule,
-    NzInputDirective,
-    MatTable,
-    NzDividerComponent
+    NgStyle
   ],
-  templateUrl: './all-bookings.component.html',
-  styleUrl: './all-bookings.component.scss'
+  templateUrl: './bookings.component.html',
+  styleUrl: './bookings.component.scss'
 })
-export class AllBookingsComponent {
+export class BookingsComponent {
   isSpinning = false;
   bookings: any = [];
   users: any = [];
@@ -50,7 +42,7 @@ export class AllBookingsComponent {
 
   sortByStatus = (a: any, b: any) => a.bookingStatus.localeCompare(b.bookingStatus);
 
-  constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
+  constructor(private providerService: ProviderService, private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit() {
     this.getAllBookings();
@@ -58,21 +50,6 @@ export class AllBookingsComponent {
     this.getAllServices();
   }
 
-  getAllBookings() {
-    this.isSpinning = true
-    this.adminService.getAllBookings().subscribe({
-      next: (res) => {
-        this.isSpinning = false;
-        this.bookings = res;
-        this.createUserMap()
-        console.log("All Bookings: ", res);
-      },
-      error: (err) => {
-        this.isSpinning = false;
-        this.message.error("Something went wrong");
-      }
-    })
-  }
   createUserMap() {
     this.users.forEach((user: any) => {
       this.userMap.set(user.id, user.fullName ?? user.businessName);
@@ -86,7 +63,7 @@ export class AllBookingsComponent {
   }
 
   getAllServices() {
-    this.adminService.getAllServices().subscribe({
+    this.providerService.getAllServices().subscribe({
       next: (res) => {
         this.services = res;
         this.createServiceMap();
@@ -99,7 +76,7 @@ export class AllBookingsComponent {
   }
 
   getAllUsers() {
-    this.adminService.getAllUsers().subscribe({
+    this.providerService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
         this.createUserMap()
@@ -110,27 +87,26 @@ export class AllBookingsComponent {
       }
     })
   }
-  getBookingById(id: number) {
-    this.adminService.getBookingById(id).subscribe({
 
-    });
-  }
-
-  getUserById(id: number) {
-    this.adminService.getUserById(id).subscribe({
-
-    });
-  }
-
-  getServiceById(id: number) {
-    this.adminService.getServiceById(id).subscribe({
-
-    });
+  getAllBookings() {
+    this.isSpinning = true
+    this.providerService.getProviderBookings(StorageService.getUserId()).subscribe({
+      next: (res) => {
+        this.isSpinning = false;
+        this.bookings = res;
+        this.createUserMap()
+        console.log("All Bookings: ", res);
+      },
+      error: (err) => {
+        this.isSpinning = false;
+        this.message.error("Something went wrong");
+      }
+    })
   }
 
   changeStatus(bookingId:number, status:string) {
     this.isSpinning = true;
-    this.adminService.changeBookingStatus(bookingId, status).subscribe({
+    this.providerService.changeBookingStatus(bookingId, status).subscribe({
       next: (res) => {
         this.isSpinning = false;
         const index = this.bookings.findIndex((b: { id: number; }) => b.id === bookingId);
@@ -151,7 +127,7 @@ export class AllBookingsComponent {
 
   deleteBooking(bookingId:number) {
     this.isSpinning = true;
-    this.adminService.deleteBooking(bookingId).subscribe({
+    this.providerService.deleteBooking(bookingId).subscribe({
       next: (res) => {
         this.isSpinning = false;
         this.bookings = this.bookings.filter((b: { id: number; }) => b.id !== bookingId);
@@ -164,5 +140,4 @@ export class AllBookingsComponent {
       }
     });
   }
-
 }

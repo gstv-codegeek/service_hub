@@ -5,6 +5,7 @@ import com.gichungasoftwares.ServiceHub.entity.Booking;
 import com.gichungasoftwares.ServiceHub.entity.Notification;
 import com.gichungasoftwares.ServiceHub.entity.ProviderService;
 import com.gichungasoftwares.ServiceHub.entity.user.Customer;
+import com.gichungasoftwares.ServiceHub.entity.user.Provider;
 import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.enums.BookingStatus;
 import com.gichungasoftwares.ServiceHub.repository.BookingRepository;
@@ -68,6 +69,7 @@ public class BookingServiceImpl implements BookingService {
             booking.setServiceDate(bookingDto.getServiceDate());
             booking.setBookingStatus(BookingStatus.Pending);
             booking.setCustomer((Customer) customer);
+            booking.setProvider(service.getProvider());
             booking.setProviderService(service);
             Booking createdBooking = bookingRepository.save(booking);
             //Send Notification
@@ -98,6 +100,17 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getAllBookings() {
         logger.info("Getting all bookings");
         return bookingRepository.findAll().stream().map(Booking::toBookingDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookingDto> getProviderBookings(Long id) {
+        // confirm provider exists
+        Optional<User> optionalProvider = userRepository.findById(id);
+        if (optionalProvider.isEmpty()) {
+            return null;
+        }
+        var existingProvider = optionalProvider.get();
+        return bookingRepository.findAllByProvider(existingProvider).stream().map(Booking::toBookingDto).collect(Collectors.toList());
     }
 
     @Override

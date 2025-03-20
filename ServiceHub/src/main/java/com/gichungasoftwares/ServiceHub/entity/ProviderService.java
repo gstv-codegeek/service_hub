@@ -44,6 +44,7 @@ public class ProviderService {
         providerServiceDto.setPrice(price);
         providerServiceDto.setProviderId(provider.getId());
         providerServiceDto.setCategoryId(category.getId());
+        providerServiceDto.setDescription(description);
         providerServiceDto.setBookings(bookings.stream().map(Booking::toBookingDto).collect(Collectors.toList()));
         return providerServiceDto;
     }

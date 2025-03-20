@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {StorageService} from '../../../auth/services/storage/storage.service';
-import {Observable} from 'rxjs';
 
 const BASE_URL = ["http://localhost:8080/api/v1"]
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
+export class ProviderService {
 
   constructor(private http: HttpClient) { }
-
-  ngOnInit() {
-  }
 
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
@@ -29,27 +26,41 @@ export class CustomerService {
     })
   }
 
-  getAllCategories(): Observable<any> {
-    return this.http.get(BASE_URL + "/categories", {
-      headers: this.createAuthorizationHeader()
-    });
-  }
-
   getAllServices(): Observable<any> {
     return this.http.get(BASE_URL + "/services", {
       headers: this.createAuthorizationHeader()
     });
   }
 
-  getMyBookings(customerId: any): Observable<any> {
-    return this.http.get(BASE_URL + "/bookings/customer/" + customerId, {
+  getMyServices(providerId: any): Observable<any> {
+    return this.http.get(BASE_URL + "/services/provider/" + providerId, {
       headers: this.createAuthorizationHeader()
     });
   }
 
-  bookService(bookingDto: any): Observable<any> {
-    return this.http.post(BASE_URL + "/service/book", bookingDto, {
+  getAllCategories(): Observable<any> {
+    return this.http.get(BASE_URL + "/categories", {
       headers: this.createAuthorizationHeader()
     });
   }
+
+  getProviderBookings(providerId: string): Observable<any> {
+    return this.http.get(BASE_URL + "/bookings/provider/" + providerId, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  changeBookingStatus(id: number, status: string): Observable<any> {
+    return this.http.get(BASE_URL + "/booking/"+ id +"/" + status, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  deleteBooking(id: number): Observable<any> {
+    return this.http.delete(BASE_URL + "/booking/delete/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+
 }

@@ -10,6 +10,7 @@ public class BookingDto {
     private Long id;
     private Long serviceId;
     private Long customerId;
+    private Long providerId;
     private ZonedDateTime bookingDate;
     private ZonedDateTime serviceDate;
     private BookingStatus bookingStatus;

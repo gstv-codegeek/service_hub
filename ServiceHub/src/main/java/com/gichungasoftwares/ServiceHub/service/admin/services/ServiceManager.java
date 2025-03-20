@@ -9,6 +9,7 @@ import java.util.List;
 public interface ServiceManager {
     boolean createService(ProviderServiceDto providerServiceDto, Authentication connectedUser);
     List<ProviderServiceDto> getAllServices();
+    List<ProviderServiceDto> getProviderServices(Long id);
     ProviderServiceDto getServiceById(Long id);
     boolean updateService(Long id, ProviderServiceDto providerServiceDto, Authentication connectedUser);
     void deleteService(Long id, Authentication connectedUser);

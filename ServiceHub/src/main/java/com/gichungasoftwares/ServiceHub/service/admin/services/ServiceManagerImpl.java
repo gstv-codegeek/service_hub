@@ -8,6 +8,7 @@ import com.gichungasoftwares.ServiceHub.entity.user.User;
 import com.gichungasoftwares.ServiceHub.repository.CategoryRepository;
 import com.gichungasoftwares.ServiceHub.repository.ProviderRepository;
 import com.gichungasoftwares.ServiceHub.repository.ServiceRepository;
+import com.gichungasoftwares.ServiceHub.repository.UserRepository;
 import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
 import com.gichungasoftwares.ServiceHub.service.admin.notification.NotificationService;
 import jakarta.transaction.Transactional;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ServiceManagerImpl implements ServiceManager {
 
+    private final UserRepository userRepository;
     private final ServiceRepository serviceRepository;
     private final CategoryRepository categoryRepository;
     private final ProviderRepository providerRepository;
@@ -89,6 +91,13 @@ public class ServiceManagerImpl implements ServiceManager {
     @Override
     public List<ProviderServiceDto> getAllServices() {
         return serviceRepository.findAll().stream().map(ProviderService::getServiceDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProviderServiceDto> getProviderServices(Long id) {
+        // confirm provider exists
+        Optional<User> optionalProvider = userRepository.findById(id);
+        return optionalProvider.map(user -> serviceRepository.findAllByProvider(user).stream().map(ProviderService::getServiceDto).collect(Collectors.toList())).orElse(null);
     }
 
     @Override

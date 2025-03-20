@@ -29,6 +29,12 @@ public class ServiceController {
         return ResponseEntity.ok(serviceManager.getAllServices());
     }
 
+    @GetMapping("/services/provider/{providerId}")
+    public ResponseEntity<?> getMyServices(@PathVariable Long providerId) {
+        return ResponseEntity.ok(serviceManager.getProviderServices(providerId));
+    }
+
+
     @GetMapping("/service/{id}")
     public ResponseEntity<?> getServiceById(@PathVariable Long id) {
         return ResponseEntity.ok(serviceManager.getServiceById(id));

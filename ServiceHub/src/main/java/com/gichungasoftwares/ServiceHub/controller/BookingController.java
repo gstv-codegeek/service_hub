@@ -24,10 +24,14 @@ public class BookingController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-
     @GetMapping("/bookings")
     public ResponseEntity<?> getAllBookings() {
         return ResponseEntity.ok(bookingService.getAllBookings());
+    }
+
+    @GetMapping("/bookings/provider/{id}")
+    public ResponseEntity<?> getProviderBookings(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.getProviderBookings(id));
     }
 
     @GetMapping("/booking/{id}")

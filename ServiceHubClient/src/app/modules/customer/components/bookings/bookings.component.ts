@@ -27,6 +27,8 @@ export class BookingsComponent {
   bookings: any = [];
   serviceMap = new Map<number, string>();
   services: any = [];
+  users: any = [];
+  userMap = new Map<number, string>();
 
   createServiceMap() {
     this.services.forEach((service: any) => {
@@ -34,6 +36,11 @@ export class BookingsComponent {
     })
   }
 
+  createUserMap() {
+    this.users.forEach((user: any) => {
+      this.userMap.set(user.id, user.fullName ?? user.businessName);
+    })
+  }
   sortByDate = (a: any, b: any) => new Date(a.bookingDate).getTime() - new Date(b.bookingDate).getTime();
 
   sortByService = (a: any, b: any) => (this.serviceMap.get(a.serviceId) || '').localeCompare(this.serviceMap.get(b.serviceId) || '');
@@ -44,6 +51,8 @@ export class BookingsComponent {
 
   ngOnInit() {
     this.getMyBookings();
+    this.getAllServices();
+    this.getAllUsers();
   }
 
 
@@ -58,6 +67,32 @@ export class BookingsComponent {
       error: (err) => {
         this.isSpinning = false;
         this.message.error("Could not get bookings");
+      }
+    })
+  }
+
+  getAllServices() {
+    this.customerService.getAllServices().subscribe({
+      next: (res) => {
+        this.services = res;
+        this.createServiceMap();
+        console.log("All Services: ", res);
+      },
+      error: (err) => {
+        this.message.error("Could not get services");
+      }
+    })
+  }
+
+  getAllUsers() {
+    this.customerService.getAllUsers().subscribe({
+      next: (res) => {
+        this.users = res;
+        this.createUserMap()
+        console.log("All Users: ", res);
+      },
+      error: (err) => {
+        this.message.error("Could not get users");
       }
     })
   }

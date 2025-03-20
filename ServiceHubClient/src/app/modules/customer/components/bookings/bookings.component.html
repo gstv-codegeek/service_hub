@@ -3,16 +3,20 @@
   <nz-table #sortTable [nzData]="bookings" nzTableLayout="auto" [nzPageSize]="10" [nzShowPagination]="'true'">
     <thead>
     <tr>
+      <th [nzSortFn]="sortByDate" style="font-weight: bolder; color: #003973;">#</th>
       <th [nzSortFn]="sortByDate" style="font-weight: bolder; color: #003973;">Booking Date</th>
       <th [nzSortFn]="sortByService" style="font-weight: bolder; color: #003973;">Service</th>
+      <th [nzSortFn]="sortByService" style="font-weight: bolder; color: #003973;">Provider</th>
       <th [nzSortFn]="sortByDate" style="font-weight: bolder; color: #003973;">Service Date</th>
       <th [nzSortFn]="sortByStatus" style="font-weight: bolder; color: #003973;">Approval Status</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let booking of sortTable.data">
+    <tr *ngFor="let booking of sortTable.data; let i = index">
+      <td>{{ i+1 }}</td>
       <td>{{ booking.bookingDate | date: 'MMM d, y' }}</td>
-      <td>{{ booking.serviceId</td>
+      <td>{{ serviceMap.get(booking.serviceId) || 'Unknown Service' }}</td>
+      <td>{{ userMap.get(booking.providerId) || 'Unknown Provider' }}</td>
       <td>{{ booking.serviceDate | date: 'MMM d, y' }}</td>
       <td>
         <strong>

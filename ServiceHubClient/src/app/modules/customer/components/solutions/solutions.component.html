@@ -1,5 +1,5 @@
 <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
-  <h3>ALL SERVICES</h3>
+  <h3>AVAILABLE SERVICES</h3>
   <nz-table #basicTable [nzData]="services" [nzPageSize]="20" [nzShowPagination]="'false'">
     <thead>
     <tr>
@@ -20,7 +20,7 @@
       <td>{{ solution.description }}</td>
       <td>
         <span>
-          <button style="margin-left: 10px;" mat-flat-button>Book</button>
+          <button style="margin-left: 10px;" mat-flat-button (click)="openBookModal(solution)">Book</button>
         </span>
       </td>
     </tr>
@@ -28,3 +28,40 @@
   </nz-table>
 </nz-spin>
 
+
+
+<!-- MODALS -->
+<!-- Book Service Modal -->
+<nz-modal [(nzVisible)]="isBookModalVisible" nzTitle="BookService : {{selectedServiceName}}" (nzOnCancel)="handleCancel()" (nzOnOk)="bookService()">
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="bookingForm" class="category-form">
+<!--      <nz-form-item>-->
+<!--        <nz-form-label nzFor="type">Customer</nz-form-label>-->
+<!--        <nz-form-control nzErrorTip="This Input is Required">-->
+<!--          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Type" formControlName="customerId">-->
+<!--            <nz-option *ngFor="let customer of customers" nzLabel="{{customer.fullName}}" nzValue="{{customer.id}}"></nz-option>-->
+<!--          </nz-select>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+<!--      <nz-form-item>-->
+<!--        <nz-form-label nzFor="type">Service</nz-form-label>-->
+<!--        <nz-form-control nzErrorTip="This Input is Required">-->
+<!--          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Type" formControlName="serviceId">-->
+<!--            <nz-option *ngFor="let service of services" nzLabel="{{service.serviceName}}" nzValue="{{service.id}}"></nz-option>-->
+<!--          </nz-select>-->
+<!--        </nz-form-control>-->
+<!--      </nz-form-item>-->
+
+      <nz-form-item>
+        <nz-form-label nzFor="serviceDate">Service Date</nz-form-label>
+        <nz-form-control nzErrorTip="This Input is Required">
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="serviceDate" style="width: 100%"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <button mat-flat-button class="category-form-button category-form-margin" style="margin-top: 10px" (click)="bookService()">Book service</button>
+
+    </form>
+  </ng-container>
+</nz-modal>
