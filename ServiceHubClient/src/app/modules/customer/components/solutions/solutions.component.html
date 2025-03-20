@@ -1,0 +1,30 @@
+<nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
+  <h3>ALL SERVICES</h3>
+  <nz-table #basicTable [nzData]="services" [nzPageSize]="20" [nzShowPagination]="'false'">
+    <thead>
+    <tr>
+      <th style="font-weight: bolder; color: #003973;">Category</th>
+      <th style="font-weight: bolder; color: #003973;">Service Provider</th>
+      <th style="font-weight: bolder; color: #003973;">Name</th>
+      <th style="font-weight: bolder; color: #003973;">Price</th>
+      <th style="font-weight: bolder; color: #003973;">Description</th>
+      <th style="font-weight: bolder; color: #003973;">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let solution of basicTable.data">
+      <td>{{ categoryMap.get(solution.categoryId) || 'Unknown Category'}}</td>
+      <td>{{ userMap.get(solution.providerId) || 'Unknown Service Provider' }}</td>
+      <td>{{ solution.serviceName }}</td>
+      <td>{{ solution.price }}</td>
+      <td>{{ solution.description }}</td>
+      <td>
+        <span>
+          <button style="margin-left: 10px;" mat-flat-button>Book</button>
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-spin>
+

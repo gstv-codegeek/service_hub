@@ -1,18 +1,42 @@
 <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
-  <h3>ALL SERVICES</h3>
+  <h3>ALL CATEGORIES</h3>
   <nz-table [nzBordered]="true" #basicTable [nzData]="categories" [nzPageSize]="20" [nzShowPagination]="'false'">
     <thead>
     <tr>
       <th style="font-weight: bolder; color: #003973;">#</th>
       <th style="font-weight: bolder; color: #003973;">Category Name</th>
+      <th style="font-weight: bolder; color: #003973;">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let category of basicTable.data">
-      <td>{{ category.id}}</td>
+    <tr *ngFor="let category of basicTable.data; let i = index">
+      <td>{{ i+1 }}</td>
       <td>{{ category.categoryName}}</td>
+      <td>
+        <span>
+          <button style="margin-left: 10px;" mat-flat-button
+                  (click)="openUpdateModal(category)">Update</button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteCategory(category.id)">Delete</button>
+        </span>
+      </td>
     </tr>
     </tbody>
   </nz-table>
 </nz-spin>
 
+
+<!-- MODALS -->
+<!-- Update Category Modal -->
+<nz-modal [(nzVisible)]="isUpdateModalVisible" nzTitle="UpdateCategory" (nzOnCancel)="handleCancel()" (nzOnOk)="updateCategory()">
+  <ng-container *nzModalContent>
+    <form [formGroup]="updateForm">
+      <label>Category Name:</label>
+      <input nz-input formControlName="categoryName" />
+      <div *ngIf="updateForm.get('categoryName')?.invalid && updateForm.get('categoryName')?.touched" style="color:red">
+        Category name is required!
+      </div>
+      <button mat-flat-button class="category-form-button category-form-margin" style="margin-top: 10px;" (click)="updateCategory()">Update Category</button>
+    </form>
+  </ng-container>
+</nz-modal>

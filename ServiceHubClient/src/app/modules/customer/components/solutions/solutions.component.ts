@@ -1,24 +1,24 @@
-import {Component} from '@angular/core';
-import {AdminService} from '../../../services/admin.service';
-import {FormBuilder} from '@angular/forms';
-import {NzMessageService} from 'ng-zorro-antd/message';
+import { Component } from '@angular/core';
+import {MatButton} from '@angular/material/button';
+import {NgForOf} from '@angular/common';
 import {NzSpinComponent} from 'ng-zorro-antd/spin';
 import {NzTableComponent} from 'ng-zorro-antd/table';
-import {NgForOf} from '@angular/common';
-import {MatButton} from '@angular/material/button';
+import {NzMessageService} from 'ng-zorro-antd/message';
+import {CustomerService} from '../../services/customer.service';
+import {AdminService} from '../../../admin/services/admin.service';
 
 @Component({
-  selector: 'app-all-services',
+  selector: 'app-solutions',
   imports: [
-    NzSpinComponent,
-    NzTableComponent,
+    MatButton,
     NgForOf,
-    MatButton
+    NzSpinComponent,
+    NzTableComponent
   ],
-  templateUrl: './all-services.component.html',
-  styleUrl: './all-services.component.scss'
+  templateUrl: './solutions.component.html',
+  styleUrl: './solutions.component.scss'
 })
-export class AllServicesComponent {
+export class SolutionsComponent {
   isSpinning = false;
   services: any = [];
   categories: any = [];
@@ -26,7 +26,7 @@ export class AllServicesComponent {
   users: any = [];
   userMap = new Map<number, string>();
 
-  constructor(private adminService: AdminService, private fb: FormBuilder, private message: NzMessageService) {}
+  constructor(private customerService: CustomerService, private message: NzMessageService) {}
 
   ngOnInit() {
     this.getAllServices();
@@ -47,7 +47,7 @@ export class AllServicesComponent {
   }
 
   getAllUsers() {
-    this.adminService.getAllUsers().subscribe({
+    this.customerService.getAllUsers().subscribe({
       next: (res) => {
         this.users = res;
         this.createUserMap();
@@ -60,7 +60,7 @@ export class AllServicesComponent {
   }
 
   getAllCategories() {
-    this.adminService.getAllCategories().subscribe({
+    this.customerService.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res;
         this.createCategoryMap();
@@ -74,7 +74,7 @@ export class AllServicesComponent {
 
   getAllServices() {
     this.isSpinning = true
-    this.adminService.getAllServices().subscribe({
+    this.customerService.getAllServices().subscribe({
       next: (res) => {
         this.isSpinning = false;
         this.services = res;

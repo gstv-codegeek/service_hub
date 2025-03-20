@@ -1,6 +1,7 @@
 package com.gichungasoftwares.ServiceHub.controller;
 
 import com.gichungasoftwares.ServiceHub.dto.CategoryDto;
+import com.gichungasoftwares.ServiceHub.dto.ProviderServiceDto;
 import com.gichungasoftwares.ServiceHub.service.admin.categories.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -40,4 +41,17 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.getCategoryById(id));
     }
 
+    @PutMapping("/category/{id}/update")
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto, Authentication connectedUser) {
+        if (categoryService.updateCategory(id, categoryDto, connectedUser)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @DeleteMapping("/category/{id}/delete")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id, Authentication connectedUser) {
+        categoryService.deleteCategory(id, connectedUser);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

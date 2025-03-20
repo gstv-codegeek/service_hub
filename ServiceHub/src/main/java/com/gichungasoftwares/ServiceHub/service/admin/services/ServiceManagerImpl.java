@@ -106,15 +106,33 @@ public class ServiceManagerImpl implements ServiceManager {
 
     @Override
     public boolean updateService(Long id, ProviderServiceDto providerServiceDto, Authentication connectedUser) {
-        //Log Action
-//        auditControlService.logAction("Service Updated", connectedUser.getName(), "Service ID: " + updatedService.getId());
+        Optional<ProviderService> optionalProviderService = serviceRepository.findById(id);
+        if (optionalProviderService.isPresent()) {
+            var existingService = optionalProviderService.get();
+            existingService.setServiceName(providerServiceDto.getServiceName());
+            existingService.setPrice(providerServiceDto.getPrice());
+            existingService.setDescription(providerServiceDto.getDescription());
+            Optional<Category> category = categoryRepository.findById(providerServiceDto.getCategoryId());
+            category.ifPresent(existingService::setCategory);
+            //Log Action
+            auditControlService.logAction("Service Updated", connectedUser.getName(), "Service ID: " + existingService.getId());
+
+            logger.info("Service updated successfully. Service ID -  {}", id);
+            return true;
+        }
 
         return false;
     }
 
     @Override
     public void deleteService(Long id, Authentication connectedUser) {
-        // Log Action
-//        auditControlService.logAction("Service Deleted", connectedUser.getName(), "Service ID: " + updatedService.getId());
+        Optional<ProviderService> optionalProviderService = serviceRepository.findById(id);
+        if (optionalProviderService.isPresent()) {
+            serviceRepository.deleteById(id);
+            // Log Action
+            auditControlService.logAction("Service Deleted", connectedUser.getName(), "Service ID: " + id);
+
+            logger.info("Service deleted successfully. Service ID - {}", id);
+        }
     }
 }

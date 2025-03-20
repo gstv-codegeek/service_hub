@@ -163,4 +163,15 @@ public class BookingServiceImpl implements BookingService {
         return false;
     }
 
+    @Override
+    public List<BookingDto> getCustomerBookings(Long id) {
+        // check if customer exists
+        Optional<User> optionalCustomer = userRepository.findById(id);
+        if (optionalCustomer.isEmpty()) {
+            return null;
+        }
+        User existingCustomer = optionalCustomer.get();
+        return bookingRepository.findAllByCustomer(existingCustomer).stream().map(Booking::toBookingDto).collect(Collectors.toList());
+    }
+
 }

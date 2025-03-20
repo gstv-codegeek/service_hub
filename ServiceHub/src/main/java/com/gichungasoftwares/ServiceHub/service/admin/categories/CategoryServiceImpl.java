@@ -7,6 +7,8 @@ import com.gichungasoftwares.ServiceHub.repository.CategoryRepository;
 import com.gichungasoftwares.ServiceHub.service.admin.audit.AuditControlService;
 import com.gichungasoftwares.ServiceHub.service.admin.notification.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
     private final AuditControlService auditControlService;
+    private final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     @Override
     public boolean postCategory(CategoryDto categoryDto, Authentication connectedUser) {
@@ -63,15 +66,28 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public boolean updateCategory(Long id, CategoryDto categoryDto, Authentication connectedUser) {
-        //Log Action
-//        auditControlService.logAction("Category Updated", connectedUser.getName(), "Category: " + updatedCategory.getCategoryName());
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (optionalCategory.isPresent()) {
+            var existingCategory = optionalCategory.get();
+            existingCategory.setCategoryName(categoryDto.getCategoryName());
+            categoryRepository.save(existingCategory);
+            //Log Action
+            auditControlService.logAction("Category Updated", connectedUser.getName(), "Category ID: " + id);
+
+            logger.info("Category updated successfully. ID: {}", id);
+            return true;
+        }
         return false;
     }
 
     @Override
     public void deleteCategory(Long id, Authentication connectedUser) {
-        //Log Action
-//        auditControlService.logAction("Category Deleted", connectedUser.getName(), "Category: " + deletedCategory.getCategoryName());
-
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (optionalCategory.isPresent()) {
+            categoryRepository.deleteById(id);
+            //Log Action
+            auditControlService.logAction("Category Deleted", connectedUser.getName(), "Category ID: " + optionalCategory.get().getId());
+            logger.info("Category deleted successfully");
+        }
     }
 }

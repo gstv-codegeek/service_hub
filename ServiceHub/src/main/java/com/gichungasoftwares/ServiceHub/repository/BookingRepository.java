@@ -1,5 +1,6 @@
 package com.gichungasoftwares.ServiceHub.repository;
 
+import com.gichungasoftwares.ServiceHub.dto.BookingDto;
 import com.gichungasoftwares.ServiceHub.entity.Booking;
 import com.gichungasoftwares.ServiceHub.entity.ProviderService;
 import com.gichungasoftwares.ServiceHub.entity.user.User;
@@ -13,4 +14,6 @@ import java.util.Optional;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     Optional<Booking> findByCustomerAndProviderServiceAndBookingStatusIn(User customer, ProviderService service, List<BookingStatus> statuses);
+
+    List<Booking> findAllByCustomer(User user);
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1")
 public class ServiceController {
 
     private final ServiceManager serviceManager;
@@ -32,5 +32,19 @@ public class ServiceController {
     @GetMapping("/service/{id}")
     public ResponseEntity<?> getServiceById(@PathVariable Long id) {
         return ResponseEntity.ok(serviceManager.getServiceById(id));
+    }
+
+    @PutMapping("/service/{id}/update")
+    public ResponseEntity<?> updateService(@PathVariable Long id, @RequestBody ProviderServiceDto providerServiceDto, Authentication connectedUser) {
+        if (serviceManager.updateService(id, providerServiceDto, connectedUser)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @DeleteMapping("/service/{id}/delete")
+    public ResponseEntity<Void> deleteService(@PathVariable Long id, Authentication connectedUser) {
+        serviceManager.deleteService(id, connectedUser);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

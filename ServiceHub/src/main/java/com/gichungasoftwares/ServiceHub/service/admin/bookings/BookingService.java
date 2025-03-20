@@ -12,4 +12,5 @@ public interface BookingService {
     BookingDto getBookingById(Long id);
     boolean changeBookingStatus(Long bookingId, String status, Authentication connectedUser);
     boolean deleteBooking(Long id, Authentication connectedUser);
+    List<BookingDto> getCustomerBookings(Long id);
 }

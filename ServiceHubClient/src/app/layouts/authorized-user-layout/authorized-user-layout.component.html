@@ -1,5 +1,5 @@
 
-<nz-layout>
+<nz-layout *ngIf="isAdminLoggedIn">
   <nz-sider nzWidth="200px" nzTheme="dark" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height: 100vh;">
     <div class="logo">
       <span class="text">ServiceHub</span>
@@ -36,7 +36,11 @@
         <ul>
           <li nz-menu-item><a routerLink="/admin/services" routerLinkActive="active">All Service</a></li>
           <li nz-menu-item><a routerLink="/admin/service/create" routerLinkActive="active">Create Service</a></li>
-          <li nz-menu-item><a routerLink="/admin/categories" routerLinkActive="active">All Categories</a></li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Categories" nzIcon="issues-close" [(nzOpen)]="openMap['sub5']"
+          (nzOpenChange)="openHandler('sub5')">
+        <ul><li nz-menu-item><a routerLink="/admin/categories" routerLinkActive="active">All Categories</a></li>
           <li nz-menu-item><a routerLink="/admin/category/create" routerLinkActive="active">Create Category</a></li>
         </ul>
       </li>
@@ -46,7 +50,7 @@
   <nz-layout>
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
-      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu" *ngIf="isAdminLoggedIn">
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
         <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>
@@ -59,5 +63,117 @@
 
     <nz-footer class="footer">&copy; 2025 All Rights Reserved | Gichunga Designs</nz-footer>
   </nz-layout>
+</nz-layout>
 
+
+
+<!-- ==== PROVIDER ===== -->
+
+<nz-layout *ngIf="isProviderLoggedIn">
+  <nz-sider nzWidth="200px" nzTheme="dark" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height: 100vh;">
+    <div class="logo">
+      <span class="text">ServiceHub</span>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
+      <li nz-menu-item ><a style="padding: 0" routerLink="/admin/dashboard" routerLinkActive="active"> <nz-icon nzType="dashboard" nzTheme="outline" /> Dashboard</a></li>
+      <li nz-submenu nzTitle="Providers" nzIcon="solution" [(nzOpen)]="openMap['sub1']"
+          (nzOpenChange)="openHandler('sub1')">
+        <ul>
+          <li>
+            <ul>
+              <li nz-menu-item><a routerLink="/admin/providers" routerLinkActive="active">All Providers</a></li>
+              <li nz-menu-item><a routerLink="/admin/provider/update" routerLinkActive="active">Edit Profile</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Customers" nzIcon="team" [(nzOpen)]="openMap['sub2']"
+          (nzOpenChange)="openHandler('sub2')">
+        <ul>
+          <li nz-menu-item><a routerLink="/admin/clients" routerLinkActive="active">All Customers</a></li>
+          <li nz-menu-item><a routerLink="/admin/client/update" routerLinkActive="active">Edit Customer Profile</a></li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Booking" nzIcon="table" [(nzOpen)]="openMap['sub3']"
+          (nzOpenChange)="openHandler('sub3')">
+        <ul>
+          <li nz-menu-item><a routerLink="/admin/service/book" routerLinkActive="active">Book Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/bookings" routerLinkActive="active">All Bookings</a></li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Services" nzIcon="issues-close" [(nzOpen)]="openMap['sub4']"
+          (nzOpenChange)="openHandler('sub4')">
+        <ul>
+          <li nz-menu-item><a routerLink="/admin/services" routerLinkActive="active">All Service</a></li>
+          <li nz-menu-item><a routerLink="/admin/service/create" routerLinkActive="active">Create Service</a></li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Categories" nzIcon="issues-close" [(nzOpen)]="openMap['sub5']"
+          (nzOpenChange)="openHandler('sub5')">
+        <ul><li nz-menu-item><a routerLink="/admin/categories" routerLinkActive="active">All Categories</a></li>
+          <li nz-menu-item><a routerLink="/admin/category/create" routerLinkActive="active">Create Category</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header style="padding: 0;">
+      <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
+      </ul>
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+    <nz-footer class="footer">&copy; 2025 All Rights Reserved | Gichunga Designs</nz-footer>
+  </nz-layout>
+</nz-layout>
+
+
+
+<!-- ===== CUSTOMER ====== -->
+
+<nz-layout *ngIf="isCustomerLoggedIn">
+  <nz-sider nzWidth="200px" nzTheme="dark" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" style="height: 100vh;">
+    <div class="logo">
+      <span class="text">ServiceHub</span>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" class="sider-menu">
+      <li nz-menu-item ><a style="padding: 0" routerLink="/customer/dashboard" routerLinkActive="active"> <nz-icon nzType="dashboard" nzTheme="outline" /> Dashboard</a></li>
+      <li nz-submenu nzTitle="Customer" nzIcon="solution" [(nzOpen)]="openMap['sub1']"
+          (nzOpenChange)="openHandler('sub1')">
+        <ul>
+          <li>
+            <ul>
+              <li nz-menu-item><a routerLink="/customer/services" routerLinkActive="active">All Services</a></li>
+              <li nz-menu-item><a routerLink="/customer/bookings" routerLinkActive="active">My Bookings</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header style="padding: 0;">
+      <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
+      </ul>
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+    <nz-footer class="footer">&copy; 2025 All Rights Reserved | Gichunga Designs</nz-footer>
+  </nz-layout>
 </nz-layout>

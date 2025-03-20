@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -51,6 +51,11 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.OK).build();
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+    }
+
+    @GetMapping("/bookings/customer/{id}")
+    public ResponseEntity<?> getCustomerBookings(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(bookingService.getCustomerBookings(id));
     }
 
 }
