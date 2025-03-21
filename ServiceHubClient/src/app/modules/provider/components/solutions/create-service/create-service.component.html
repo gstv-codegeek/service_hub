@@ -1,1 +1,41 @@
-<p>create-service works!</p>
+<nz-spin [nzSpinning]="isSpinning">
+  <h3>Create Service</h3>
+  <form nz-form [formGroup]="serviceForm" class="category-form">
+    <nz-form-item>
+      <nz-form-label nzFor="type">Category</nz-form-label>
+      <nz-form-control nzErrorTip="This Input is Required">
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Category" formControlName="categoryId">
+          <nz-option *ngFor="let category of categories" nzLabel="{{category.categoryName}}" nzValue="{{category.id}}"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="type">Service</nz-form-label>
+      <nz-form-control nzErrorTip="This Input is Required">
+        <input nz-input type="text" formControlName="serviceName" placeholder="Service Name">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="type">Price</nz-form-label>
+      <nz-form-control nzErrorTip="This Input is Required">
+        <input nz-input type="number" formControlName="price" placeholder="price" step="1">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzFor="type">Description</nz-form-label>
+      <nz-form-control nzErrorTip="This Input is Required">
+        <input nz-input type="text" formControlName="description" placeholder="Description">
+      </nz-form-control>
+    </nz-form-item>
+<!--    <nz-form-item>-->
+<!--      <nz-form-label nzFor="type">Service Provider</nz-form-label>-->
+<!--      <nz-form-control nzErrorTip="This Input is Required">-->
+<!--        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Service Provider" formControlName="providerId">-->
+<!--          <nz-option *ngFor="let provider of providers" nzLabel="{{provider.businessName}}" nzValue="{{provider.id}}"></nz-option>-->
+<!--        </nz-select>-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
+    <button mat-flat-button (click)="createService()" style="margin-top: 10px">Submit Service</button>
+  </form>
+</nz-spin>
+

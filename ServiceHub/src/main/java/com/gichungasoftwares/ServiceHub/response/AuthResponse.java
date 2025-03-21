@@ -9,5 +9,7 @@ public class AuthResponse {
     private String jwt;
     private UserRole userRole;
     private Long userId;
+    private String fullName;
+    private String businessName;
 
 }

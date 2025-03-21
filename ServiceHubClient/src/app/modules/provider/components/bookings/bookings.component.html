@@ -29,19 +29,19 @@
       </td>
       <td>
         <span *ngIf="booking.bookingStatus === 'Pending'">
-          <button style="margin-left: 10px;" mat-flat-button
+          <button style="" mat-flat-button
                   (click)="changeStatus(booking.id, 'Approve')">Approve</button>
           <nz-divider nzType="vertical"></nz-divider>
-          <button style="margin-left: 10px;background: #ffc107" mat-flat-button
+          <button style="background: #ffc107" mat-flat-button
                   (click)="changeStatus(booking.id, 'Reject')">Reject</button>
-          <nz-divider nzType="vertical"></nz-divider>
-          <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
+<!--          <nz-divider nzType="vertical"></nz-divider>-->
+<!--          <button style="background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>-->
         </span>
         <span *ngIf="booking.bookingStatus === 'Rejected'">
-          <button style="margin-left: 10px;" mat-flat-button
+          <button style="" mat-flat-button
                   (click)="changeStatus(booking.id, 'Approve')">Approve</button>
-          <nz-divider nzType="vertical"></nz-divider>
-          <button style="margin-left: 10px;background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>
+<!--          <nz-divider nzType="vertical"></nz-divider>-->
+<!--          <button style="background: #ff4081" mat-flat-button (click)="deleteBooking(booking.id)">Delete</button>-->
         </span>
       </td>
     </tr>

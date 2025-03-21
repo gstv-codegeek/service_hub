@@ -67,7 +67,7 @@ public class ServiceManagerImpl implements ServiceManager {
 
             //Send Notification
             String message = String.format(
-                    "Hello %s,\n\nYou have successfully service %s on %s!",
+                    "Hello %s,\n\nYou have successfully created service %s on %s!",
                     connectedUser.getName(),
                     createdProviderService.getServiceName(),
                     ZonedDateTime.now()
@@ -91,6 +91,11 @@ public class ServiceManagerImpl implements ServiceManager {
     @Override
     public List<ProviderServiceDto> getAllServices() {
         return serviceRepository.findAll().stream().map(ProviderService::getServiceDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProviderServiceDto> getUnbookedServicesByCustomer(Long customerId) {
+        return serviceRepository.findUnbookedServicesByCustomer(customerId).stream().map(ProviderService::getServiceDto).collect(Collectors.toList());
     }
 
     @Override

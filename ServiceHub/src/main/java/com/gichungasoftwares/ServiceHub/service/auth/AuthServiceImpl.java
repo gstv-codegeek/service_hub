@@ -100,7 +100,7 @@ public class AuthServiceImpl implements AuthService{
             logger.info("{} record created successfully", user.getUserRole());
 
             //Log Action
-            auditControlService.logAction("User Created", "SYSTEM", "User: " + createdUser.getId());
+            auditControlService.logAction("User Created", "SYSTEM ADMIN", "User: " + createdUser.getId());
 
             return userMapper.toUserDto(createdUser);
 

@@ -50,6 +50,17 @@ export class AdminService {
     });
   }
 
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(BASE_URL + "/user/delete/" + id, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  updateUser(id:number, userDto:any): Observable<any> {
+    return this.http.put(BASE_URL + "/user/" +id+ "/update", userDto, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
 
   // ===========CATEGORY SERVICES =============== //
   createCategory(categoryDto: any): Observable<any> {

@@ -7,7 +7,7 @@ import {NgZorroImportsModule} from '../../NgZorroImportsModule';
 import {StorageService} from '../../auth/services/storage/storage.service';
 import {NgIf} from '@angular/common';
 import {NzMessageService} from 'ng-zorro-antd/message';
-import {NzTabLinkDirective} from 'ng-zorro-antd/tabs';
+import {MatAnchor} from '@angular/material/button';
 
 @Component({
   selector: 'app-authorized-user-layout',
@@ -22,7 +22,7 @@ import {NzTabLinkDirective} from 'ng-zorro-antd/tabs';
     RouterLinkActive,
     NgIf,
     RouterOutlet,
-    NzTabLinkDirective,
+    MatAnchor,
   ],
   templateUrl: './authorized-user-layout.component.html',
   styleUrl: './authorized-user-layout.component.scss'
@@ -48,7 +48,9 @@ export class AuthorizedUserLayoutComponent {
   isAdminLoggedIn: boolean = StorageService.isAdminLoggedIn();
   isProviderLoggedIn: boolean = StorageService.isProviderLoggedIn();
   isCustomerLoggedIn: boolean = StorageService.isCustomerLoggedIn();
-
+  user = StorageService.getUser();
+  userRole = this.user?.role;
+  fullName = this.user?.fullName ?? this.user?.businessName;
   constructor(private message: NzMessageService, private router: Router) {
   }
 

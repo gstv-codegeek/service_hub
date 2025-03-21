@@ -10,8 +10,6 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {AuthService} from '../../services/auth/auth.service';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {StorageService} from '../../services/storage/storage.service';
-import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
-import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +24,7 @@ import {MatIcon} from '@angular/material/icon';
     NzRowDirective,
     NzSpinComponent,
     RouterLink,
-    ReactiveFormsModule,
-    MatButtonToggle,
-    MatIcon,
-    MatButtonToggleGroup
+    ReactiveFormsModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -55,10 +50,12 @@ export class LoginComponent {
     // console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        console.log(res);
+        console.log(res.businessName);
         const user = {
           id: res.userId,
-          role: res.userRole
+          role: res.userRole,
+          fullName: res.fullName,
+          businessName: res.businessName
         }
         StorageService.saveUser(user);
         StorageService.saveToken(res.jwt);

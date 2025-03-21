@@ -17,4 +17,5 @@ public class UserDto {
     private String idNumber;
     private UserRole userRole;
     private String businessName;
+    private String password;
 }

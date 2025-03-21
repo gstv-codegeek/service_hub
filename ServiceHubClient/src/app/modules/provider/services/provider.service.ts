@@ -62,5 +62,9 @@ export class ProviderService {
     });
   }
 
-
+  createService(serviceDto: any): Observable<any> {
+    return this.http.post(BASE_URL + "/service", serviceDto, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
 }

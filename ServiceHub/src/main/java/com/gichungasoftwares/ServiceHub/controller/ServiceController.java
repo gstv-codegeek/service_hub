@@ -34,6 +34,10 @@ public class ServiceController {
         return ResponseEntity.ok(serviceManager.getProviderServices(providerId));
     }
 
+    @GetMapping("/services/unbooked/customer/{customerId}")
+    public ResponseEntity<?> getUnbookedServicesByCustomer(@PathVariable Long customerId) {
+        return ResponseEntity.ok(serviceManager.getUnbookedServicesByCustomer(customerId));
+    }
 
     @GetMapping("/service/{id}")
     public ResponseEntity<?> getServiceById(@PathVariable Long id) {

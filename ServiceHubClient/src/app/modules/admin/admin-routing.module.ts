@@ -12,6 +12,8 @@ import {CustomersComponent} from './components/users/customers/all-customers/cus
 import {UpdateCustomerComponent} from './components/users/customers/update-customer/update-customer.component';
 import {UpdateProviderComponent} from './components/users/providers/update-provider/update-provider.component';
 import {CreateServiceComponent} from './components/solutions/create-service/create-service.component';
+import {CreateProviderComponent} from './components/users/providers/create-provider/create-provider.component';
+import {CreateCustomerComponent} from './components/users/customers/create-customer/create-customer.component';
 
 const routes: Routes = [
   { path: '', pathMatch:'full', redirectTo: 'dashboard' },
@@ -20,8 +22,10 @@ const routes: Routes = [
   { path: 'category/create', component:  CreateCategoryComponent, canActivate: [authGuard]},
   { path: 'providers', component:  ProvidersComponent, canActivate: [authGuard]},
   { path: 'provider/update', component:  UpdateProviderComponent, canActivate: [authGuard]},
+  { path: 'provider/create', component:  CreateProviderComponent, canActivate: [authGuard]},
   { path: 'clients', component:  CustomersComponent, canActivate: [authGuard]},
   { path: 'client/update', component:  UpdateCustomerComponent, canActivate: [authGuard]},
+  { path: 'client/create', component:  CreateCustomerComponent, canActivate: [authGuard]},
   { path: 'category/create', component:  CreateCategoryComponent, canActivate: [authGuard]},
   { path: 'services', component:  AllServicesComponent, canActivate: [authGuard]},
   { path: 'service/create', component:  CreateServiceComponent, canActivate: [authGuard]},

@@ -47,6 +47,12 @@ export class CustomerService {
     });
   }
 
+  getUnbookedServices(customerId: any): Observable<any> {
+    return this.http.get(BASE_URL + "/services/unbooked/customer/" + customerId, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
   bookService(bookingDto: any): Observable<any> {
     return this.http.post(BASE_URL + "/service/book", bookingDto, {
       headers: this.createAuthorizationHeader()

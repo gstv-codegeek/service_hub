@@ -93,7 +93,7 @@ export class SolutionsComponent {
 
   getAllServices() {
     this.isSpinning = true
-    this.customerService.getAllServices().subscribe({
+    this.customerService.getUnbookedServices(StorageService.getUserId()).subscribe({
       next: (res) => {
         this.isSpinning = false;
         this.services = res;

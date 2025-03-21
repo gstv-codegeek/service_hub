@@ -10,6 +10,7 @@ public interface ServiceManager {
     boolean createService(ProviderServiceDto providerServiceDto, Authentication connectedUser);
     List<ProviderServiceDto> getAllServices();
     List<ProviderServiceDto> getProviderServices(Long id);
+    List<ProviderServiceDto> getUnbookedServicesByCustomer(Long customerId);
     ProviderServiceDto getServiceById(Long id);
     boolean updateService(Long id, ProviderServiceDto providerServiceDto, Authentication connectedUser);
     void deleteService(Long id, Authentication connectedUser);

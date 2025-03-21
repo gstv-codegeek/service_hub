@@ -12,7 +12,7 @@
           <li>
             <ul>
               <li nz-menu-item><a routerLink="/admin/providers" routerLinkActive="active">All Providers</a></li>
-              <li nz-menu-item><a routerLink="/admin/provider/update" routerLinkActive="active">Edit Profile</a></li>
+              <li nz-menu-item><a routerLink="/admin/provider/create" routerLinkActive="active">Create Provider</a></li>
             </ul>
           </li>
         </ul>
@@ -21,7 +21,7 @@
           (nzOpenChange)="openHandler('sub2')">
         <ul>
           <li nz-menu-item><a routerLink="/admin/clients" routerLinkActive="active">All Customers</a></li>
-          <li nz-menu-item><a routerLink="/admin/client/update" routerLinkActive="active">Edit Customer Profile</a></li>
+          <li nz-menu-item><a routerLink="/admin/client/create" routerLinkActive="active">Create Customer</a></li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Booking" nzIcon="table" [(nzOpen)]="openMap['sub3']"
@@ -51,6 +51,8 @@
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li style="float: left;"><a mat-flat-button><nz-icon nzType="user" nzTheme="outline" />
+          {{ userRole + ': ' + fullName }}</a></li>
         <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>
@@ -88,7 +90,6 @@
           </li>
         </ul>
       </li>
-
     </ul>
   </nz-sider>
 
@@ -96,6 +97,8 @@
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li style="float: left;"><a mat-flat-button><nz-icon nzType="user" nzTheme="twotone" nzTwotoneColor="#eb2f96"/>
+          {{ userRole + ': ' +  fullName }}</a></li>
         <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>
@@ -139,6 +142,8 @@
     <nz-header style="padding: 0;">
       <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></span>
       <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li style="float: left;"><a mat-flat-button><nz-icon nzType="user" nzTheme="twotone" nzTwotoneColor="#eb2f96"/>
+          {{ userRole }}</a></li>
         <li  style="float: right;"><a routerLinkActive="active" nz-button [nzShape]="'round'" (click)="logout()"><nz-icon nzType="lock" nzTheme="twotone" nzTwotoneColor="#eb2f96"/> Logout</a></li>
       </ul>
     </nz-header>

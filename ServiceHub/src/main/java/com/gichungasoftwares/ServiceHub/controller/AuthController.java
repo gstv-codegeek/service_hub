@@ -61,6 +61,8 @@ public class AuthController {
             authResponse.setJwt(jwt);
             authResponse.setUserRole(user.getUserRole());
             authResponse.setUserId(user.getId());
+            authResponse.setFullName(user.getFullName());
+            authResponse.setBusinessName(user.toUserDto().getBusinessName());
 
             //Log Action
             auditControlService.logAction("User Login", user.getEmail(), "User ID: [" + user.getId() + "] ");
